@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">android_project</string>
+    <string name="new_text_as_appeared_with_slide">New text as appeared with slide</string>
 </resources>
