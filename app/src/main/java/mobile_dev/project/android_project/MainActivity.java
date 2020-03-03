@@ -2,6 +2,7 @@ package mobile_dev.project.android_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
-    private IngredientsViewModel mWordViewModel;
+    private IngredientsViewModel mIngredientViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mWordViewModel = new ViewModelProvider(this).get(IngredientsViewModel.class);
+        mIngredientViewModel = new ViewModelProvider(this).get(IngredientsViewModel.class);
 
-        mWordViewModel.getAllIngredients().observe(this, new Observer<List<Ingredients>>() {
+        mIngredientViewModel.getAllIngredients().observe(this, new Observer<List<Ingredients>>() {
             @Override
             public void onChanged(@Nullable final List<Ingredients> ingredient) {
                 adapter.setIngredients(ingredient);
@@ -58,8 +59,19 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Ingredients word = new Ingredients(data.getStringExtra(addNewIngredients.EXTRA_REPLY));
-            mWordViewModel.insert(word);
+            String name = data.getStringExtra(addNewIngredients.EXTRA_Name);
+            int qty = data.getIntExtra(addNewIngredients.EXTRA_Quantity, 0);
+
+            if(name != null && !name.equals("")) {
+                Ingredients ingredient = new Ingredients(name, qty, 0);
+                mIngredientViewModel.insert(ingredient);
+            }else {
+                Toast.makeText(
+                        getApplicationContext(),
+                        R.string.empty_not_saved,
+                        Toast.LENGTH_LONG).show();
+            }
+
         } else {
             Toast.makeText(
                     getApplicationContext(),

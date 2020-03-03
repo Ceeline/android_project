@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Ingredients.class}, version = 1)
+@Database(entities = {Ingredients.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract IngredientsDao IngredientsDao();
@@ -41,17 +41,13 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
-            // If you want to keep data through app restarts,
-            // comment out the following block
             databaseWriteExecutor.execute(() -> {
-                // Populate the database in the background.
-                // If you want to start with more words, just add them.
                 IngredientsDao dao = INSTANCE.IngredientsDao();
                 dao.deleteAll();
 
-                Ingredients ingredient = new Ingredients("Hello");
+                Ingredients ingredient = new Ingredients("Ingrédient 1");
                 dao.insert(ingredient);
-                ingredient = new Ingredients("World");
+                ingredient = new Ingredients("Ingrédient 2");
                 dao.insert(ingredient);
             });
         }

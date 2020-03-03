@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 @Entity(tableName = "ingredients_table")
@@ -14,28 +15,50 @@ public class Ingredients {
     public int idIngredient;
 
     @NonNull
-    @ColumnInfo(name = "ingredient")
-    public String ingredient;
+    @ColumnInfo(name = "nameingredient")
+    public String nameIngredient;
 
-    /*@ColumnInfo(name = "inventoryquantity")
+    @NonNull
+    @ColumnInfo(name = "inventoryquantity")
     public int inventoryQuantity;
 
     @ColumnInfo(name = "shoppingquantity")
     public int shoppingQuantity;
 
-    @ColumnInfo(name = "inventory")
-    public boolean inventory;
+    @ColumnInfo(name = "inventoryList")
+    public boolean inventoryList;
 
-    @ColumnInfo(name = "shopping")
-    public boolean shopping;*/
+    @ColumnInfo(name = "shoppingList")
+    public boolean shoppingList;
 
 
-    public Ingredients(String ingredient) {
-        this.ingredient = ingredient;
+    public Ingredients(@NonNull String nameIngredient) {
+        this.nameIngredient = nameIngredient;
+        this.inventoryQuantity = 0;
+        this.shoppingQuantity = 0;
+        this.inventoryList = true;
     }
 
-    /*public int getIdIngredient() {
-        return idIngredient;
+
+    public Ingredients(@NonNull String nameIngredient, int inventoryQuantity, int mode) {
+        this.nameIngredient = nameIngredient;
+
+        if (mode == 0) {
+            this.inventoryQuantity = inventoryQuantity;
+            this.shoppingQuantity = 0;
+            this.inventoryList = true;
+            this.shoppingList = false;
+        } else if (mode == 1) {
+            this.inventoryQuantity = 0;
+            this.shoppingQuantity = inventoryQuantity;
+            this.inventoryList = false;
+            this.shoppingList = true;
+        }
+    }
+
+    @NonNull
+    public String getNameIngredient() {
+        return nameIngredient;
     }
 
     public int getInventoryQuantity() {
@@ -46,40 +69,25 @@ public class Ingredients {
         return shoppingQuantity;
     }
 
-    public boolean isInventory() {
-        return inventory;
+    public boolean isInventoryList() {
+        return inventoryList;
     }
 
-    public boolean isShopping() {
-        return shopping;
-    }
-
-    public Ingredients(String ingredient, int quantity, int mode) {
-        this.ingredient = ingredient;
-
-        if (mode == 0) {
-            this.inventoryQuantity = quantity;
-            this.shoppingQuantity = 0;
-            this.inventory = true;
-            this.shopping = false;
-        } else if (mode == 1) {
-            this.inventoryQuantity = 0;
-            this.shoppingQuantity = quantity;
-            this.inventory = false;
-            this.shopping = true;
-        }
-    }*/
-
-    public String getIngredient() {
-        return this.ingredient;
-    }
-
-    /*public JSONObject getIngredient2JSON() {
+    public JSONObject getIngredient2JSON() {
         JSONObject json = new JSONObject();
+        try {
+            json.put("nameingredient", this.nameIngredient);
+            json.put("inventoryquantity", this.inventoryQuantity);
+            json.put("shoppingquantity", this.shoppingQuantity);
+            json.put("inventoryList", this.inventoryList);
+            json.put("shoppingList", this.inventoryList);
+        } catch (JSONException e) {
+            return null;
+        }
 
 
         return json;
-    }*/
+    }
 
 
 }
