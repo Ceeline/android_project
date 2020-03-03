@@ -9,16 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Cocktail_List"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".CocktailDetail" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Cocktail_List">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addNewIngredients"></activity>
-        <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".addNewIngredients" />
+        <activity android:name=".WelcomeActivity" />
+
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
