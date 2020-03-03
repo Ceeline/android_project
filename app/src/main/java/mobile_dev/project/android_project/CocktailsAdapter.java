@@ -1,6 +1,8 @@
 package mobile_dev.project.android_project;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
+
 
 /* Code inspired by : https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView */
 
 public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
+
+    Context ctxt;
 
     // View lookup cache
     private static class ViewHolder {
@@ -20,8 +29,9 @@ public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
         ImageView image;
     }
 
-    public CocktailsAdapter(Context context, ArrayList<Cocktail> cocktails) {
-        super(context, R.layout.item_cocktail_list, cocktails);
+    public CocktailsAdapter(Context context) {
+        super(context, R.layout.item_cocktail_list);
+        ctxt = context;
     }
 
 
@@ -53,9 +63,37 @@ public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
 
         // Populate the data into the template view using the data object
         viewHolder.name.setText(cocktail.name);
-        viewHolder.image.setImageBitmap(cocktail.image);
+        getImageFromURL(cocktail.image, viewHolder.image);
 
         // Return the completed view to render on screen
         return convertView;
+    }
+
+
+    private void getImageFromURL(String url, final ImageView image) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(ctxt);
+
+        ImageRequest imageRequest = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        image.setImageBitmap(response);
+                        Log.i("IMAGE", response.toString());
+                    }
+
+                }, 0, 0, ImageView.ScaleType.CENTER, null,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("ERROR_LOG", error.toString());
+                    }
+                });
+
+
+        // Add the request to the RequestQueue.
+        queue.add(imageRequest);
+
     }
 }

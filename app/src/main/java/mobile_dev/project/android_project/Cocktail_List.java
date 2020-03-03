@@ -2,7 +2,11 @@ package mobile_dev.project.android_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -16,27 +20,33 @@ public class Cocktail_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail__list);
 
-
-        //until we code a way to retrieve data from the api
-
-        //--- ATTACHING THE ADAPTER TO A LIST VIEW
-
-        // Construct the data source
-        ArrayList<Cocktail> cocktailsList = new ArrayList<Cocktail>();
-
-        // Create the adapter to convert the array to views
-        CocktailsAdapter adapter = new CocktailsAdapter(this, cocktailsList);
-
-        // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.listCocktails);
-        listView.setAdapter(adapter);
-
-        //---
-
+        // Creation of a ListView
+        ListView listView = findViewById(R.id.listCocktails);
 
         //get data from fetch
-        JSONArray jsonArray = new JSONArray();        //result of fetch
-        ArrayList<Cocktail> newCocktails = Cocktail.fromJson(jsonArray);
-        adapter.addAll(newCocktails);
+        DownloaderTask downloader = new DownloaderTask(this, listView);
+        //TODO: search par première lettre ou par nom. Récupérer input de l'utilisateur pour déduire l'url à utiliser dans la ligne suivante
+        downloader.execute("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a");
+
+        // Create an onItemClick function for the list view
+        AdapterView.OnItemClickListener messageClickedHandler = new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Cocktail cocktail = (Cocktail) parent.getItemAtPosition(position);
+                openActivity(cocktail);
+            }
+        };
+
+        // Attach the event to the listView
+        listView.setOnItemClickListener(messageClickedHandler);
+
     }
+
+    public void openActivity (Cocktail cocktail) {
+        Intent intent = new Intent(this, CocktailDetail.class);
+        intent.putExtra("cocktail", cocktail);
+        Log.i("TOSEND", cocktail.toString());
+        startActivity(intent);
+
+    }
+
 }

@@ -4,4 +4,11 @@
     <string name="hint_word">Type ingredient\'s name...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+
+    <string name="cocktail_name">Cocktail Name: </string>
+    <string name="cocktail_ingredient">Ingredients: </string>
+    <string name="cocktail_instruction">Instructions: </string>
+
+    <string name="cocktail_descriptionImg">Image describing the cocktail</string>
+
 </resources>
