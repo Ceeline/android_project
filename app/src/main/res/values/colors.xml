@@ -35,4 +35,6 @@
         <item>@color/dot_dark_screen3</item>
         <item>@color/dot_dark_screen4</item>
     </array>
+
+    <color name="buttonLabel">#d3d3d3</color>
 </resources>
