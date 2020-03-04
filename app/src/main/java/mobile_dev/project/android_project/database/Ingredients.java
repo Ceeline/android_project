@@ -5,8 +5,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 @Entity(tableName = "ingredients_table")
 public class Ingredients {
@@ -43,12 +41,12 @@ public class Ingredients {
     public Ingredients(@NonNull String nameIngredient, int inventoryQuantity, int mode) {
         this.nameIngredient = nameIngredient;
 
-        if (mode == 0) {
+        if (mode == Constants.INVENTORY) {
             this.inventoryQuantity = inventoryQuantity;
             this.shoppingQuantity = 0;
             this.inventoryList = true;
             this.shoppingList = false;
-        } else if (mode == 1) {
+        } else if (mode == Constants.SHOPPING) {
             this.inventoryQuantity = 0;
             this.shoppingQuantity = inventoryQuantity;
             this.inventoryList = false;
@@ -73,21 +71,6 @@ public class Ingredients {
         return inventoryList;
     }
 
-    public JSONObject getIngredient2JSON() {
-        JSONObject json = new JSONObject();
-        try {
-            json.put("nameingredient", this.nameIngredient);
-            json.put("inventoryquantity", this.inventoryQuantity);
-            json.put("shoppingquantity", this.shoppingQuantity);
-            json.put("inventoryList", this.inventoryList);
-            json.put("shoppingList", this.inventoryList);
-        } catch (JSONException e) {
-            return null;
-        }
-
-
-        return json;
-    }
 
 
 }

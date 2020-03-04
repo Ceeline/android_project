@@ -41,15 +41,15 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
-            databaseWriteExecutor.execute(() -> {
-                IngredientsDao dao = INSTANCE.IngredientsDao();
-                dao.deleteAll();
+            //databaseWriteExecutor.execute(() -> {
+                //IngredientsDao dao = INSTANCE.IngredientsDao();
+                //dao.deleteAll();
 
-                Ingredients ingredient = new Ingredients("Ingrédient 1");
+                /*Ingredients ingredient = new Ingredients("Ingrédient 1");
                 dao.insert(ingredient);
                 ingredient = new Ingredients("Ingrédient 2");
-                dao.insert(ingredient);
-            });
+                dao.insert(ingredient);*/
+           // });
         }
     };
 }

@@ -20,6 +20,10 @@ public class IngredientsViewModel extends AndroidViewModel {
         }
 
         public LiveData<List<Ingredients>> getAllIngredients() { return mAllIngredients; }
+        public LiveData<List<Ingredients>> getAllInventory() { return mRepository.getAllInventory(); }
+        public LiveData<List<Ingredients>> getAllShopping() { return mRepository.getAllShopping(); }
 
         public void insert(Ingredients ingredient) { mRepository.insert(ingredient); }
+        public void delete(Ingredients ingredient) { mRepository.delete(ingredient); }
+        public void update(Ingredients ingredient) { mRepository.update(ingredient); }
 }

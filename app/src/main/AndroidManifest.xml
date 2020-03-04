@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".CocktailDetail" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Cocktail_List">
+        <activity android:name=".Cocktail_List" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".addNewIngredients" />
-        <activity android:name=".WelcomeActivity" />
-
+        <activity android:name=".Shopping_List" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

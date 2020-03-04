@@ -21,7 +21,7 @@
         android:id="@+id/qtytext"
         android:layout_width="69dp"
         android:layout_height="27dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,10 +30,20 @@
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/btnBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_check_box_outline_blank_black_24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

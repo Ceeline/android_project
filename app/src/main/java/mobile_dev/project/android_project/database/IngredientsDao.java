@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -19,6 +20,12 @@ public interface IngredientsDao {
     @Query("SELECT * FROM ingredients_table")
     LiveData<List<Ingredients>> getAll();
 
+    @Query("SELECT * FROM ingredients_table WHERE inventoryList = 1")
+    LiveData<List<Ingredients>> getAllInventory();
+
+    @Query("SELECT * FROM ingredients_table WHERE shoppingList = 1")
+    LiveData<List<Ingredients>> getAllShopping();
+
     /* @Query("SELECT * FROM ingredients WHERE iid IN (:ingredientsIds)")
      List<Ingredients> loadAllByIds(int[] userIds);
 
@@ -29,8 +36,12 @@ public interface IngredientsDao {
     /*@Insert
     void insertAll(Ingredients... ingredients);
 */
+
+    @Update
+    void update(Ingredients ingredient);
+
     @Delete
-    void delete(Ingredients ingredients);
+    int delete(Ingredients ingredient);
 
     @Query("DELETE FROM ingredients_table")
     void deleteAll();

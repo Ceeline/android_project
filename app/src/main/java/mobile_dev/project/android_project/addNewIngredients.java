@@ -27,8 +27,6 @@ public class addNewIngredients extends AppCompatActivity {
         quantitySeekBar = findViewById(R.id.simpleSeekBar);
         quantityText = findViewById(R.id.textQuantity);
 
-        //quantityText.setText("i changed it");
-
         quantitySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {

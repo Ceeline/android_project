@@ -20,7 +20,22 @@ public class AppRepository {
         return mAllIngredients;
     }
 
+    LiveData<List<Ingredients>> getAllInventory() { return mIngredientsDao.getAllInventory();
+    }
+
+    LiveData<List<Ingredients>> getAllShopping() {
+        return mIngredientsDao.getAllShopping();
+    }
+
     void insert(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.insert(ingredient));
+    }
+
+    void delete(Ingredients ingredient) {
+        AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.delete(ingredient));
+    }
+
+    void update(Ingredients ingredient) {
+        AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.update(ingredient));
     }
 }
