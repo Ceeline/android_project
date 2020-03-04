@@ -94,7 +94,7 @@ public class Shopping_List extends AppCompatActivity implements IngredientsListA
     public void fct_OnUpdateClickListener(Ingredients mIngredient) {
         mIngredient.shoppingList = false;
         mIngredient.inventoryList = true;
-        mIngredient.inventoryQuantity = mIngredient.shoppingQuantity;
+        mIngredient.inventoryQuantity = mIngredient.inventoryQuantity + mIngredient.shoppingQuantity;
         mIngredient.shoppingQuantity = 0;
         mIngredientViewModel.update(mIngredient);
     }
