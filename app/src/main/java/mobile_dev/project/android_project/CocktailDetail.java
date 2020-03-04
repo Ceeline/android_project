@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.Dictionary;
+import java.util.Map;
 
 public class CocktailDetail extends AppCompatActivity {
     Cocktail cocktail;
@@ -20,25 +21,30 @@ public class CocktailDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail_detail);
 
-        //in the next activity:
         Intent intent = getIntent();
         cocktail = intent.getParcelableExtra("cocktail");
 
-        TextView name = findViewById(R.id.cocktail_Name);
+        TextView name = findViewById(R.id.NameTxt);
         name.setText(cocktail.name);
 
         ImageView image = findViewById(R.id.cocktail_Img);
-        // image.setImageBitmap(cocktail.image);
+        cocktail.getImageFromURL(this, cocktail.image, image);
 
-        TextView ingredients = findViewById(R.id.ingredients_Txt);
+        TextView ingredients = findViewById(R.id.ingredientsTxt);
         ingredients.setText(displayIngredients());
 
         TextView instructions = findViewById(R.id.instructionsTxt);
-        instructions.setText(cocktail.instructions);
+        instructions.setText(String.format("Instructions: \n%s", cocktail.instructions));
 
     }
 
     public String displayIngredients (){
-        return cocktail.ingredients.toString();
+        String ingredientsStructured = "Ingredients: \n";
+
+        for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
+            ingredientsStructured += "-> " + entry.getKey() + ": " + entry.getValue() + "\n";
+        }
+
+        return ingredientsStructured;
     }
 }

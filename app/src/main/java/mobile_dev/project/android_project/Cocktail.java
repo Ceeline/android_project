@@ -1,10 +1,20 @@
 package mobile_dev.project.android_project;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Cocktail implements Parcelable {
@@ -20,30 +31,8 @@ public class Cocktail implements Parcelable {
     String category;
     Boolean alcoholic;
     String image;
-    Dictionary<String, String> ingredients;     //ingredient + measure
+    HashMap<String, String> ingredients;     //ingredient + measure
     String instructions;
-
-    /* Complete constructor for Cocktail class*/
-    public Cocktail (String id, String name, String category, Boolean alcoholic, String image, Dictionary<String, String> ingredients, String instructions)
-    {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.alcoholic = alcoholic;
-        this.image = image;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
-    }
-
-    /*Constructor without ingredients and instructions*/
-    public Cocktail (String id, String name, String category, Boolean alcoholic, String image)
-    {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-        this.alcoholic = alcoholic;
-        this.image = image;
-    }
 
     /* Constructor to convert JSON object into a Java class instance */
     public Cocktail(JSONObject object){
@@ -76,8 +65,8 @@ public class Cocktail implements Parcelable {
     }
 
     /* Gets the list of ingredients for the cocktail */
-    public Dictionary<String, String> getIngredients (JSONObject object){
-        Dictionary<String, String> ingredientsList = new Hashtable<String, String>();
+    public HashMap<String, String> getIngredients (JSONObject object){
+        HashMap<String, String> ingredientsList = new HashMap<String, String>();
 
         int i = 1;
         String ingredient = null;
@@ -101,6 +90,33 @@ public class Cocktail implements Parcelable {
         return ingredientsList;
     }
 
+    public void getImageFromURL(Context ctxt, String url, final ImageView image) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(ctxt);
+
+        ImageRequest imageRequest = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        image.setImageBitmap(response);
+                        Log.i("IMAGE", response.toString());
+                    }
+
+                }, 0, 0, ImageView.ScaleType.CENTER, null,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("ERROR_LOG", error.toString());
+                    }
+                });
+
+
+        // Add the request to the RequestQueue.
+        queue.add(imageRequest);
+
+    }
+
     @Override
     public String toString(){
         return "name: " + name + "\ncategory: " + category + "\nalcolohic: " + alcoholic + "\ningredients: " + ingredients  + "\ninstructions: " + instructions + "\nimage:" + image;
@@ -119,8 +135,9 @@ public class Cocktail implements Parcelable {
         dest.writeString(category);
         dest.writeBoolean(alcoholic);
         dest.writeString(image);
-        dest.writeValue(ingredients);
+        dest.writeString(ingredients.toString());
         dest.writeString(instructions);
+
     }
 
     public static final Parcelable.Creator<Cocktail> CREATOR = new Parcelable.Creator<Cocktail>() {
@@ -141,7 +158,27 @@ public class Cocktail implements Parcelable {
         category = in.readString();
         alcoholic = in.readBoolean();
         image = in.readString();
-        ingredients = in.readParcelable(Dictionary.class.getClassLoader());
+        //Ingredients
+        String ingredientsStr = in.readString();
+        formatString (ingredientsStr);
+
         instructions = in.readString();
+    }
+
+    private HashMap formatString (String s){
+        ingredients = new HashMap<>();
+
+        //remove { }
+        String newStr = s.substring(s.indexOf('{') + 1, s.length() - 1);
+
+        //separate at , and =
+        String[] arrayStr = newStr.split(",|\\=");
+
+        int i = 0;
+        while (i < arrayStr.length-1){
+            ingredients.put(arrayStr[i], arrayStr[i+1]);
+            i+=2;
+        }
+        return ingredients;
     }
 }
