@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.Dictionary;
 import java.util.Map;
+
+import mobile_dev.project.android_project.database.AppRepository;
+import mobile_dev.project.android_project.database.Constants;
+import mobile_dev.project.android_project.database.Ingredients;
 
 public class CocktailDetail extends AppCompatActivity {
     Cocktail cocktail;
@@ -38,13 +40,24 @@ public class CocktailDetail extends AppCompatActivity {
 
     }
 
-    public String displayIngredients (){
-        String ingredientsStructured = "Ingredients: \n";
+    public String displayIngredients() {
+        StringBuilder ingredientsStructured = new StringBuilder("Ingredients: \n");
 
         for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
-            ingredientsStructured += "-> " + entry.getKey() + ": " + entry.getValue() + "\n";
+            ingredientsStructured.append("-> " + entry.getKey() + ": " + entry.getValue() + "\n");
         }
 
-        return ingredientsStructured;
+        return ingredientsStructured.toString();
+    }
+
+    public void onAddItemsClicked(View view) {
+        AppRepository mRepository = new AppRepository(this.getApplication());
+
+        for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
+            //TODO verifier si l'objet n'existe pas déjà..
+            //TODO prendre que l'int des quantités....
+            Ingredients ingredient = new Ingredients(entry.getKey(), 1, Constants.SHOPPING);
+            mRepository.insert(ingredient);
+        }
     }
 }

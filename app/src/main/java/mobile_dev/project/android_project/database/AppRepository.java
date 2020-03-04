@@ -10,7 +10,7 @@ public class AppRepository {
     private IngredientsDao mIngredientsDao;
     private LiveData<List<Ingredients>> mAllIngredients;
 
-    AppRepository(Application application) {
+    public AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mIngredientsDao = db.IngredientsDao();
         mAllIngredients = mIngredientsDao.getAll();
@@ -27,7 +27,7 @@ public class AppRepository {
         return mIngredientsDao.getAllShopping();
     }
 
-    void insert(Ingredients ingredient) {
+    public void insert(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.insert(ingredient));
     }
 

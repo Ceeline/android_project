@@ -24,6 +24,7 @@
 
     //dropdown list in cocktail list activity: letter
     <string name="letter_prompt">Choose a filter</string>
+    <string name="add_missing_items">Add missing items to the shopping list</string>
     <string-array name="letters">
         <item>A</item>
         <item>B</item>
