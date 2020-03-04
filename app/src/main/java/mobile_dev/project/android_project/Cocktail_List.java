@@ -20,6 +20,7 @@ public class Cocktail_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail__list);
 
+
         // Creation of a ListView
         ListView listView = findViewById(R.id.listCocktails);
 
@@ -44,9 +45,8 @@ public class Cocktail_List extends AppCompatActivity {
     public void openActivity (Cocktail cocktail) {
         Intent intent = new Intent(this, CocktailDetail.class);
         intent.putExtra("cocktail", cocktail);
-        Log.i("TOSEND", cocktail.toString());
-        startActivity(intent);
 
+        startActivity(intent);
     }
 
 }
