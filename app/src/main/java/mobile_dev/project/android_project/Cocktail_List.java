@@ -1,12 +1,15 @@
 package mobile_dev.project.android_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,17 +19,26 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 
-public class Cocktail_List extends AppCompatActivity {
+public class Cocktail_List extends Fragment {
     char filter;
+    private Context context;
+    private View mView;
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        context = this.getContext();
+        View root = inflater.inflate(R.layout.activity_cocktail__list, null);
+        return root;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cocktail__list);
 
+        this.mView = view;
 
         // Creation of a ListView
-        ListView listView = findViewById(R.id.listCocktails);
+        ListView listView = view.findViewById(R.id.listCocktails);
 
         // add listener on spinner filters
         addListenerOnSpinnerItemSelection();
@@ -39,36 +51,30 @@ public class Cocktail_List extends AppCompatActivity {
 
         // Attach the event to the listView
         listView.setOnItemClickListener(messageClickedHandler);
-
     }
 
-    public void openActivity (Cocktail cocktail) {
-        Intent intent = new Intent(this, CocktailDetail.class);
+    public void openActivity(Cocktail cocktail) {
+        Intent intent = new Intent(context, CocktailDetail.class);
         intent.putExtra("cocktail", cocktail);
 
         startActivity(intent);
     }
 
-    private void addListenerOnSpinnerItemSelection(){
+    private void addListenerOnSpinnerItemSelection() {
         //Spinner letter
-        Spinner spinnerFilter = (Spinner) findViewById(R.id.spinner);
+        Spinner spinnerFilter = mView.findViewById(R.id.spinner);
+        Spinner spinnerChoice = mView.findViewById(R.id.spinnerChoice);
 
-        class CustomOnFilterSelectedListener implements AdapterView.OnItemSelectedListener{
+        class CustomOnFilterSelectedListener implements AdapterView.OnItemSelectedListener {
 
-            Context ctxt;
-
-            CustomOnFilterSelectedListener(Context ctxt){
-                this.ctxt =ctxt;
-            }
-            public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 filter = parent.getItemAtPosition(pos).toString().toLowerCase().charAt(0);
                 String filterName = parent.getItemAtPosition(pos).toString();
 
                 //we display the different choices for this category in the second spinner
-                Spinner spinnerChoice = (Spinner) findViewById(R.id.spinnerChoice);
                 ArrayList<String> list = new ArrayList<String>();
 
-                switch (filterName){
+                switch (filterName) {
                     case "Alcoholic":
                         list.add("Alcoholic");
                         list.add("Non_Alcoholic");
@@ -86,17 +92,15 @@ public class Cocktail_List extends AppCompatActivity {
                         list.add("Beer");
                         break;
                     case "Letter":
-                        for (int i = 97; i <= 122 ; i++)
-                        {
-                            list.add(Character.toString( (char)i ));
+                        for (int i = 97; i <= 122; i++) {
+                            list.add(Character.toString((char) i));
                         }
                         break;
                 }
 
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(ctxt,android.R.layout.simple_spinner_item, list);
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, list);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerChoice.setAdapter(dataAdapter);
-
             }
 
             @Override
@@ -105,25 +109,19 @@ public class Cocktail_List extends AppCompatActivity {
             }
         }
 
-        spinnerFilter.setOnItemSelectedListener(new CustomOnFilterSelectedListener(this));
+        spinnerFilter.setOnItemSelectedListener(new CustomOnFilterSelectedListener());
 
 
-        Spinner spinnerChoice = (Spinner) findViewById(R.id.spinnerChoice);
 
-        class CustomOnChoiceSelectedListener implements AdapterView.OnItemSelectedListener{
-            Context ctxt;
 
-            CustomOnChoiceSelectedListener(Context ctxt){
-                this.ctxt =ctxt;
-            }
+        class CustomOnChoiceSelectedListener implements AdapterView.OnItemSelectedListener {
 
-            public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String choice = parent.getItemAtPosition(pos).toString();
-                ListView listView = findViewById(R.id.listCocktails);
-
-                DownloaderTask downloader = new DownloaderTask(ctxt, listView);
+                ListView listView = mView.findViewById(R.id.listCocktails);
+                DownloaderTask downloader = new DownloaderTask(context, listView);
                 String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?" + filter + "=" + choice;
-                Log.i("CCC", "url: "+url);
+                Log.i("CCC", "url: " + url);
                 downloader.execute(url);
             }
 
@@ -133,7 +131,7 @@ public class Cocktail_List extends AppCompatActivity {
             }
         }
 
-        spinnerChoice.setOnItemSelectedListener(new CustomOnChoiceSelectedListener(this));
+        spinnerChoice.setOnItemSelectedListener(new CustomOnChoiceSelectedListener());
     }
 
 }

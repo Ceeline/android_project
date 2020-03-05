@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android_project</string>
+    <string name="app_name">Cocktails</string>
     <string name="new_text_as_appeared_with_slide">New text as appeared with slide</string>
     <string name="hint_word">Type ingredient\'s name...</string>
     <string name="button_save">Save</string>

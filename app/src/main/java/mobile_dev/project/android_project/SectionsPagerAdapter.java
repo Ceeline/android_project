@@ -3,6 +3,7 @@ package mobile_dev.project.android_project;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -28,15 +29,15 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
-        Log.i("Celia", "im at" + position);
         if(position == 0){
             return new MainActivity();
         }else if(position == 2){
             return new Shopping_List();
         }
-        return new MainActivity();
+        return new Cocktail_List();
     }
 
     @Nullable
