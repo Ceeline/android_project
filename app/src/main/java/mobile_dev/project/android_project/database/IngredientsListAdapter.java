@@ -67,8 +67,8 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
                 ingredientBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (OnUpdateClickListener != null) {
-                            OnUpdateClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
+                        if (OnDeleteClickListener != null) {
+                            OnDeleteClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
                         }
                     }
                 });
@@ -78,8 +78,6 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
 
     public interface OnDeleteClickListener {
         void fct_OnDeleteClickListener(Ingredients mIngredient);
-    }
-    public interface OnUpdateClickListener {
         void fct_OnUpdateClickListener(Ingredients mIngredient);
     }
 
@@ -87,13 +85,11 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
     private final LayoutInflater mInflater;
     private List<Ingredients> mIngredients;
     private OnDeleteClickListener OnDeleteClickListener;
-    private OnUpdateClickListener OnUpdateClickListener;
     private int mode;
 
-    public IngredientsListAdapter(Context context, OnDeleteClickListener delL, OnUpdateClickListener upL, int mode) {
+    public IngredientsListAdapter(Context context, OnDeleteClickListener delL, int mode) {
         mInflater = LayoutInflater.from(context);
         this.OnDeleteClickListener = delL;
-        this.OnUpdateClickListener = upL;
         this.mode = mode;
     }
 

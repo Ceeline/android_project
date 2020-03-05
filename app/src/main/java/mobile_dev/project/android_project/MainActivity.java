@@ -1,44 +1,55 @@
 package mobile_dev.project.android_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import mobile_dev.project.android_project.database.Constants;
 import mobile_dev.project.android_project.database.Ingredients;
 import mobile_dev.project.android_project.database.IngredientsListAdapter;
 import mobile_dev.project.android_project.database.IngredientsViewModel;
 
+import static android.app.Activity.RESULT_OK;
 
-public class MainActivity extends AppCompatActivity implements IngredientsListAdapter.OnDeleteClickListener {
+
+public class MainActivity extends Fragment implements IngredientsListAdapter.OnDeleteClickListener {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     private IngredientsViewModel mIngredientViewModel;
+    private Context globalContext = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        globalContext = this.getActivity();
+        View root = inflater.inflate(R.layout.activity_main, null);
+        return root;
+    }
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final IngredientsListAdapter adapter = new IngredientsListAdapter(this, this, null, Constants.INVENTORY);
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Log.i("celia", "im created");
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        final IngredientsListAdapter adapter = new IngredientsListAdapter(this.getContext(), this, Constants.INVENTORY);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         mIngredientViewModel = new ViewModelProvider(this).get(IngredientsViewModel.class);
 
@@ -48,14 +59,20 @@ public class MainActivity extends AppCompatActivity implements IngredientsListAd
                 adapter.setIngredients(ingredient);
             }
         });
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Celia", "clicked");
+                Intent intent = new Intent(globalContext, addNewIngredients.class);
+                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+
+            }
+        });
+
+
     }
-
-
-    public void onClickaddIngredient(View view) {
-        Intent intent = new Intent(MainActivity.this, addNewIngredients.class);
-        startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
-    }
-
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -69,14 +86,14 @@ public class MainActivity extends AppCompatActivity implements IngredientsListAd
                 mIngredientViewModel.insert(ingredient);
             } else {
                 Toast.makeText(
-                        getApplicationContext(),
+                        globalContext.getApplicationContext(),
                         R.string.empty_not_saved,
                         Toast.LENGTH_LONG).show();
             }
 
         } else {
             Toast.makeText(
-                    getApplicationContext(),
+                    globalContext.getApplicationContext(),
                     R.string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
         }
@@ -91,6 +108,11 @@ public class MainActivity extends AppCompatActivity implements IngredientsListAd
             mIngredient.inventoryQuantity = 0;
             mIngredientViewModel.update(mIngredient);
         }
+    }
+
+    @Override
+    public void fct_OnUpdateClickListener(Ingredients mIngredient) {
+
     }
 }
 

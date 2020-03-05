@@ -56,7 +56,7 @@ public class CocktailDetail extends AppCompatActivity {
         for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
             //TODO verifier si l'objet n'existe pas déjà..
             //TODO prendre que l'int des quantités....
-            Ingredients ingredient = new Ingredients(entry.getKey(), 1, Constants.SHOPPING);
+            Ingredients ingredient = new Ingredients(entry.getKey().trim(), 1, Constants.SHOPPING);
             mRepository.insert(ingredient);
         }
     }
