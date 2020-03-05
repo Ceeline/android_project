@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".addNewIngredients" />
-        <activity android:name=".Cocktail_List" />
+        <activity android:name=".Shopping_List" />
     </application>
 
 </manifest>

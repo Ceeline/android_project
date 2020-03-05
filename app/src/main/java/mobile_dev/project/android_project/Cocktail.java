@@ -77,7 +77,11 @@ public class Cocktail implements Parcelable {
 
                 if (!ingredient.equals("null")){
                     String measure = object.getString("strMeasure" + i);
-                    ingredientsList.put(ingredient, measure);
+                    if (measure.equals("null")){
+                        ingredientsList.put(ingredient, "");
+                    }else{
+                        ingredientsList.put(ingredient, measure);
+                    }
                 }
 
                 i++;

@@ -13,45 +13,15 @@
     <string name="cocktail_switch">Only show feasible cocktails</string>
     <string name="cocktail_filter">Filter by: </string>
     <string name="cocktail_letter">List of cocktail with first letter: </string>
+    <string name="add_missing_items">Add missing items to the shopping list</string>
 
     //dropdown list in cocktail list activity: filter
     <string name="filter_prompt">Choose a filter</string>
     <string-array name="filter_names">
+        <item>Letter</item>
         <item>Alcoholic</item>
+        <item>Ingredient</item>
         <item>Category</item>
-        <item>Glass</item>
-    </string-array>
-
-    //dropdown list in cocktail list activity: letter
-    <string name="letter_prompt">Choose a filter</string>
-    <string name="add_missing_items">Add missing items to the shopping list</string>
-    <string-array name="letters">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>F</item>
-        <item>G</item>
-        <item>H</item>
-        <item>I</item>
-        <item>J</item>
-        <item>K</item>
-        <item>L</item>
-        <item>M</item>
-        <item>N</item>
-        <item>O</item>
-        <item>P</item>
-        <item>Q</item>
-        <item>R</item>
-        <item>S</item>
-        <item>T</item>
-        <item>U</item>
-        <item>V</item>
-        <item>W</item>
-        <item>X</item>
-        <item>Y</item>
-        <item>Z</item>
     </string-array>
 
 

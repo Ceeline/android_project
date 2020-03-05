@@ -58,6 +58,10 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
                         ArrayList<Cocktail> newCocktails = Cocktail.fromJson(jsonArray);
 
                         adapter.addAll(newCocktails);
+
+                        adapter.notifyDataSetChanged();
+                        //listCocktails.invalidateViews();
+                        //listCocktails.refreshDrawableState();
                     }
                 }, new Response.ErrorListener() {
 
