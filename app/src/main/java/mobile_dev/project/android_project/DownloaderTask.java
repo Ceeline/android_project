@@ -23,23 +23,23 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
     private Context ctxt;
     private ListView listCocktails;
     CocktailsAdapter adapter;
+    String url;
 
-    public DownloaderTask(Context ctxt, ListView listCocktails) {
+    public DownloaderTask(Context ctxt, ListView listCocktails, String url) {
         this.ctxt = ctxt;
         this.listCocktails = listCocktails;
 
         // Create the adapter to convert the array to views
         this.adapter = new CocktailsAdapter(ctxt);
         this.listCocktails.setAdapter(adapter);
+
+        this.url = url;
     }
 
     @Override
     protected Cocktail doInBackground(String... strings) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(ctxt);
-
-        //url to get the list of all cocktails ordered by their first letter
-        String url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -60,8 +60,6 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
                         adapter.addAll(newCocktails);
 
                         adapter.notifyDataSetChanged();
-                        //listCocktails.invalidateViews();
-                        //listCocktails.refreshDrawableState();
                     }
                 }, new Response.ErrorListener() {
 

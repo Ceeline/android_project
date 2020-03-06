@@ -119,9 +119,18 @@ public class Cocktail_List extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String choice = parent.getItemAtPosition(pos).toString();
                 ListView listView = mView.findViewById(R.id.listCocktails);
-                DownloaderTask downloader = new DownloaderTask(context, listView);
-                String url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?" + filter + "=" + choice;
+
+                //we get the url for the request to the API
+                String url;
+                if (filter == 'l'){
+                    url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + choice;
+                }
+                else{
+                    url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?" + filter + "=" + choice;
+                }
                 Log.i("CCC", "url: " + url);
+
+                DownloaderTask downloader = new DownloaderTask(context, listView, url);
                 downloader.execute(url);
             }
 
