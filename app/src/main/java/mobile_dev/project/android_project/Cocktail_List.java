@@ -1,6 +1,5 @@
 package mobile_dev.project.android_project;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
@@ -15,9 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
+
+import mobile_dev.project.android_project.R;
+import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
+import mobile_dev.project.android_project.frag_Cocktail.CocktailDetail;
+import mobile_dev.project.android_project.frag_Cocktail.DownloaderTask;
 
 public class Cocktail_List extends Fragment {
     char filter;

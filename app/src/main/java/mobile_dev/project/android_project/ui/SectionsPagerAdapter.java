@@ -1,7 +1,6 @@
-package mobile_dev.project.android_project;
+package mobile_dev.project.android_project.ui;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,7 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import mobile_dev.project.android_project.MainActivity;
+import mobile_dev.project.android_project.Cocktail_List;
+import mobile_dev.project.android_project.Inventory_List;
 import mobile_dev.project.android_project.R;
 import mobile_dev.project.android_project.Shopping_List;
 
@@ -33,7 +33,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position == 0){
-            return new MainActivity();
+            return new Inventory_List();
         }else if(position == 2){
             return new Shopping_List();
         }

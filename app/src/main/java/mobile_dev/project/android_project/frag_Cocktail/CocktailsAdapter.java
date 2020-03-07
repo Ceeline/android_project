@@ -1,14 +1,14 @@
-package mobile_dev.project.android_project;
+package mobile_dev.project.android_project.frag_Cocktail;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import mobile_dev.project.android_project.R;
 
 public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
 

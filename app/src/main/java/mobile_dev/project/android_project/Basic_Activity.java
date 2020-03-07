@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import mobile_dev.project.android_project.ui.SectionsPagerAdapter;
+
 public class Basic_Activity extends AppCompatActivity {
 
     @Override

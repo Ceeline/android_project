@@ -1,9 +1,8 @@
-package mobile_dev.project.android_project;
+package mobile_dev.project.android_project.frag_Cocktail;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.Map;
 
+import mobile_dev.project.android_project.R;
 import mobile_dev.project.android_project.database.AppRepository;
 import mobile_dev.project.android_project.database.Constants;
 import mobile_dev.project.android_project.database.Ingredients;

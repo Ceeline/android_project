@@ -28,7 +28,7 @@ import mobile_dev.project.android_project.database.IngredientsViewModel;
 import static android.app.Activity.RESULT_OK;
 
 
-public class MainActivity extends Fragment implements IngredientsListAdapter.OnDeleteClickListener {
+public class Inventory_List extends Fragment implements IngredientsListAdapter.OnDeleteClickListener {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 

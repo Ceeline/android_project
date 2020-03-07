@@ -1,4 +1,4 @@
-package mobile_dev.project.android_project;
+package mobile_dev.project.android_project.frag_Cocktail;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,6 +9,9 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,18 +24,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 
+@Entity(tableName = "cocktails_table")
 public class Cocktail implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
     String id;
+
+    @ColumnInfo(name = "nameCocktail")
     String name;
+
+    @ColumnInfo(name = "categoryCocktail")
     String category;
+
+    @ColumnInfo(name = "alcoholic")
     Boolean alcoholic;
+
+    @ColumnInfo(name = "imageURL")
     String image;
+
+    @ColumnInfo(name = "ingredients")
     HashMap<String, String> ingredients;     //ingredient + measure
+
+    @ColumnInfo(name = "instructions")
     String instructions;
+
+
 
     /* Constructor to convert JSON object into a Java class instance */
     public Cocktail(JSONObject object){
@@ -141,7 +159,6 @@ public class Cocktail implements Parcelable {
         dest.writeString(image);
         dest.writeString(ingredients.toString());
         dest.writeString(instructions);
-
     }
 
     public static final Parcelable.Creator<Cocktail> CREATOR = new Parcelable.Creator<Cocktail>() {
