@@ -53,28 +53,34 @@ public class Cocktail implements Parcelable {
 
 
     /* Constructor to convert JSON object into a Java class instance */
-    public Cocktail(JSONObject object){
+    public Cocktail(JSONObject object, int type){
         try {
+            if (type == 1)
+            {
+                this.category = object.getString("strCategory");
+                this.alcoholic = object.getString("strAlcoholic").equals("Alcoholic");
+                this.ingredients = getIngredients(object);
+                this.instructions = object.getString("strInstructions");
+            }
+
             this.id = object.getString("idDrink");
             this.name = object.getString("strDrink");
-            this.category = object.getString("strCategory");
-            this.alcoholic = object.getString("strAlcoholic").equals("Alcoholic");
             this.image = object.getString("strDrinkThumb");
-            this.ingredients = getIngredients(object);
-            this.instructions = object.getString("strInstructions");
+            Log.i("IMAGE_URL", this.image);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     /* method to convert an array of JSON objects into a list of Cocktail objects */
-    public static ArrayList<Cocktail> fromJson(JSONArray jsonArray) {
+    public static ArrayList<Cocktail> fromJson(JSONArray jsonArray, int type) {
 
         ArrayList<Cocktail> cocktails = new ArrayList<Cocktail>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                cocktails.add(new Cocktail(jsonArray.getJSONObject(i)));
+                cocktails.add(new Cocktail(jsonArray.getJSONObject(i), type));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -110,33 +116,6 @@ public class Cocktail implements Parcelable {
         }
 
         return ingredientsList;
-    }
-
-    public void getImageFromURL(Context ctxt, String url, final ImageView image) {
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(ctxt);
-
-        ImageRequest imageRequest = new ImageRequest(url,
-                new Response.Listener<Bitmap>() {
-
-                    @Override
-                    public void onResponse(Bitmap response) {
-                        image.setImageBitmap(response);
-                        Log.i("IMAGE", response.toString());
-                    }
-
-                }, 0, 0, ImageView.ScaleType.CENTER, null,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("ERROR_LOG", error.toString());
-                    }
-                });
-
-
-        // Add the request to the RequestQueue.
-        queue.add(imageRequest);
-
     }
 
     @Override

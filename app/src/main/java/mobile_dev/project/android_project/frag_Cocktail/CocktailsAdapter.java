@@ -54,7 +54,10 @@ public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
 
         // Populate the data into the template view using the data object
         viewHolder.name.setText(cocktail.name);
-        cocktail.getImageFromURL(ctxt, cocktail.image, viewHolder.image);
+
+        //get images from urls
+        BitmapDownloaderTask bitmapDownloader = new BitmapDownloaderTask(ctxt, cocktail.image, viewHolder.image);
+        bitmapDownloader.execute();
 
         // Return the completed view to render on screen
         return convertView;

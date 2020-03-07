@@ -133,7 +133,7 @@ public class Cocktail_List extends Fragment {
                 Log.i("CCC", "url: " + url);
 
                 DownloaderTask downloader = new DownloaderTask(context, listView, url);
-                downloader.execute(url);
+                downloader.execute();
             }
 
             @Override

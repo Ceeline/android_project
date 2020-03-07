@@ -55,7 +55,12 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
                             e.printStackTrace();
                         }
 
-                        ArrayList<Cocktail> newCocktails = Cocktail.fromJson(jsonArray);
+                        ArrayList<Cocktail> newCocktails = null;
+
+                        if (url.contains("search"))
+                            newCocktails = Cocktail.fromJson(jsonArray,1);
+                        else
+                            newCocktails = Cocktail.fromJson(jsonArray,2);
 
                         adapter.addAll(newCocktails);
 

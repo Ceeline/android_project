@@ -29,8 +29,10 @@ public class CocktailDetail extends AppCompatActivity {
         TextView name = findViewById(R.id.NameTxt);
         name.setText(cocktail.name);
 
+        //get image from url
         ImageView image = findViewById(R.id.cocktail_Img);
-        cocktail.getImageFromURL(this, cocktail.image, image);
+        BitmapDownloaderTask bitmapDownloader = new BitmapDownloaderTask(this, cocktail.image, image);
+        bitmapDownloader.execute();
 
         TextView ingredients = findViewById(R.id.ingredientsTxt);
         ingredients.setText(displayIngredients());
