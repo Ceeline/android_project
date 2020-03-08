@@ -26,17 +26,6 @@ public interface IngredientsDao {
     @Query("SELECT * FROM ingredients_table WHERE shoppingList = 1")
     LiveData<List<Ingredients>> getAllShopping();
 
-    /* @Query("SELECT * FROM ingredients WHERE iid IN (:ingredientsIds)")
-     List<Ingredients> loadAllByIds(int[] userIds);
-
-     @Query("SELECT * FROM ingredients WHERE first_name LIKE :first AND " +
-             "last_name LIKE :last LIMIT 1")
-     Ingredients findByName(String first, String last);
-*/
-    /*@Insert
-    void insertAll(Ingredients... ingredients);
-*/
-
     @Update
     void update(Ingredients ingredient);
 

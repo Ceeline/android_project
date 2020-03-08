@@ -1,6 +1,7 @@
 package mobile_dev.project.android_project;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,5 +29,26 @@ public class Basic_Activity extends AppCompatActivity {
 
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                // The search button was pressed
+                return true;
+
+            case R.id.action_favorite:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                // throw error
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
