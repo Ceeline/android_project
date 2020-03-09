@@ -3,7 +3,9 @@ package mobile_dev.project.android_project.frag_Cocktail;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,15 +20,20 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import mobile_dev.project.android_project.R;
+
 //to retrieve data from the API
 public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
     private Context ctxt;
     private ListView listCocktails;
     CocktailsAdapter adapter;
     String url;
+    Cocktail cocktail;
+    OnPostInterface inter;
 
     public DownloaderTask(Context ctxt, ListView listCocktails, String url) {
         this.ctxt = ctxt;
+
         this.listCocktails = listCocktails;
 
         // Create the adapter to convert the array to views
@@ -34,6 +41,14 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
         this.listCocktails.setAdapter(adapter);
 
         this.url = url;
+    }
+
+    public DownloaderTask(Context ctxt, String url, OnPostInterface inter) {
+        this.ctxt = ctxt;
+        this.cocktail = cocktail;
+        this.url = url;
+        this.listCocktails = null;
+        this.inter = inter;
     }
 
     @Override
@@ -55,16 +70,22 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
                             e.printStackTrace();
                         }
 
-                        ArrayList<Cocktail> newCocktails = null;
+                        if (listCocktails != null){
+                            ArrayList<Cocktail> newCocktails = null;
+                            newCocktails = Cocktail.fromJson(jsonArray);
+                            adapter.addAll(newCocktails);
+                            adapter.notifyDataSetChanged();
+                        }
+                        else{   //download detail for one cocktail
+                            try {
+                                cocktail = Cocktail.fromJson(jsonArray.getJSONObject(0));
+                                inter.onPostExecute(cocktail);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
 
-                        if (url.contains("search"))
-                            newCocktails = Cocktail.fromJson(jsonArray,1);
-                        else
-                            newCocktails = Cocktail.fromJson(jsonArray,2);
+                        }
 
-                        adapter.addAll(newCocktails);
-
-                        adapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
 

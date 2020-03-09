@@ -1,23 +1,8 @@
 package mobile_dev.project.android_project.frag_Cocktail;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-import android.widget.ImageView;
-
-import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Entity(tableName = "cocktails_table")
-public class Cocktail implements Parcelable {
+public class Cocktail {
 
     @PrimaryKey(autoGenerate = true)
     String id;
@@ -66,7 +51,6 @@ public class Cocktail implements Parcelable {
             this.id = object.getString("idDrink");
             this.name = object.getString("strDrink");
             this.image = object.getString("strDrinkThumb");
-            Log.i("IMAGE_URL", this.image);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -74,18 +58,23 @@ public class Cocktail implements Parcelable {
     }
 
     /* method to convert an array of JSON objects into a list of Cocktail objects */
-    public static ArrayList<Cocktail> fromJson(JSONArray jsonArray, int type) {
+    public static ArrayList<Cocktail> fromJson(JSONArray jsonArray) {
 
         ArrayList<Cocktail> cocktails = new ArrayList<Cocktail>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                cocktails.add(new Cocktail(jsonArray.getJSONObject(i), type));
+                cocktails.add(new Cocktail(jsonArray.getJSONObject(i), 2));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
         return cocktails;
+    }
+
+    public static Cocktail fromJson(JSONObject jsonObject) {
+        Cocktail cocktail = new Cocktail(jsonObject, 1);
+        return cocktail;
     }
 
     /* Gets the list of ingredients for the cocktail */
@@ -123,62 +112,7 @@ public class Cocktail implements Parcelable {
         return "name: " + name + "\ncategory: " + category + "\nalcolohic: " + alcoholic + "\ningredients: " + ingredients  + "\ninstructions: " + instructions + "\nimage:" + image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(category);
-        dest.writeBoolean(alcoholic);
-        dest.writeString(image);
-        dest.writeString(ingredients.toString());
-        dest.writeString(instructions);
-    }
-
-    public static final Parcelable.Creator<Cocktail> CREATOR = new Parcelable.Creator<Cocktail>() {
-        @RequiresApi(api = Build.VERSION_CODES.Q)
-        public Cocktail createFromParcel(Parcel in) {
-            return new Cocktail(in);
-        }
-
-        public Cocktail[] newArray(int size) {
-            return new Cocktail[size];
-        }
-    };
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public Cocktail (Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        category = in.readString();
-        alcoholic = in.readBoolean();
-        image = in.readString();
-        //Ingredients
-        String ingredientsStr = in.readString();
-        formatString (ingredientsStr);
-
-        instructions = in.readString();
-    }
-
-    private HashMap formatString (String s){
-        ingredients = new HashMap<>();
-
-        //remove { }
-        String newStr = s.substring(s.indexOf('{') + 1, s.length() - 1);
-
-        //separate at , and =
-        String[] arrayStr = newStr.split(",|\\=");
-
-        int i = 0;
-        while (i < arrayStr.length-1){
-            ingredients.put(arrayStr[i], arrayStr[i+1]);
-            i+=2;
-        }
-        return ingredients;
+    public String getId(){
+        return id;
     }
 }
