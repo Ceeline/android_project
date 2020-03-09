@@ -20,7 +20,6 @@
     <string-array name="filter_names">
         <item>Letter</item>
         <item>Alcoholic</item>
-        <item>Ingredient</item>
         <item>Category</item>
     </string-array>
 

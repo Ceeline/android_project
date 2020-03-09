@@ -57,8 +57,7 @@ public class Cocktail_List extends Fragment {
 
     public void openActivity(Cocktail cocktail) {
         Intent intent = new Intent(context, CocktailDetail.class);
-        intent.putExtra("cocktail", cocktail);
-
+        intent.putExtra("idCocktail", cocktail.getId());
         startActivity(intent);
     }
 
@@ -81,9 +80,6 @@ public class Cocktail_List extends Fragment {
                         list.add("Alcoholic");
                         list.add("Non_Alcoholic");
                         list.add("Optional_Alcohol");
-                        break;
-                    case "Ingredient":
-                        //TODO
                         break;
                     case "Category":
                         list.add("Ordinary_Drink");
@@ -130,7 +126,6 @@ public class Cocktail_List extends Fragment {
                 else{
                     url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?" + filter + "=" + choice;
                 }
-                Log.i("CCC", "url: " + url);
 
                 DownloaderTask downloader = new DownloaderTask(context, listView, url);
                 downloader.execute();
