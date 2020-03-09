@@ -16,15 +16,17 @@ public interface IngredientsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Ingredients ingredient);
 
-
-    @Query("SELECT * FROM ingredients_table")
-    LiveData<List<Ingredients>> getAll();
-
     @Query("SELECT * FROM ingredients_table WHERE inventoryList = 1")
     LiveData<List<Ingredients>> getAllInventory();
 
     @Query("SELECT * FROM ingredients_table WHERE shoppingList = 1")
     LiveData<List<Ingredients>> getAllShopping();
+
+    @Query("UPDATE ingredients_table SET inventoryQuantity = :quantity WHERE idIngredient = :id")
+    void updateQuantity(int id, int quantity);
+
+    @Query("SELECT count(*) FROM ingredients_table WHERE nameingredient = :name")
+    int checkifExist(String name);
 
     @Update
     void update(Ingredients ingredient);

@@ -30,8 +30,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class Inventory_List extends Fragment implements IngredientsListAdapter.OnDeleteClickListener {
 
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
-
     private IngredientsViewModel mIngredientViewModel;
     private Context globalContext = null;
 
@@ -44,7 +42,6 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
 
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.i("celia", "im created");
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         final IngredientsListAdapter adapter = new IngredientsListAdapter(this.getContext(), this, Constants.INVENTORY);
@@ -64,10 +61,8 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Celia", "clicked");
                 Intent intent = new Intent(globalContext, addNewIngredients.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
-
+                startActivityForResult(intent, Constants.NEW_ING_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -77,9 +72,9 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(addNewIngredients.EXTRA_Name);
-            int qty = data.getIntExtra(addNewIngredients.EXTRA_Quantity, 0);
+        if (requestCode == Constants.NEW_ING_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String name = data.getStringExtra(Constants.EXTRA_Name);
+            int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
 
             if (name != null && !name.equals("")) {
                 Ingredients ingredient = new Ingredients(name, qty, Constants.INVENTORY);
@@ -91,6 +86,13 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
                         Toast.LENGTH_LONG).show();
             }
 
+        } else if (requestCode == Constants.EDIT_ING_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+            int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
+            int id = data.getIntExtra(Constants.EXTRA_Id, 0);
+
+            mIngredientViewModel.updateQuantity(id, qty);
         } else {
             Toast.makeText(
                     globalContext.getApplicationContext(),
@@ -112,7 +114,11 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
 
     @Override
     public void fct_OnUpdateClickListener(Ingredients mIngredient) {
-
+        Intent intent = new Intent(globalContext, editIngredients.class);
+        intent.putExtra(Constants.EXTRA_Id, mIngredient.idIngredient);
+        intent.putExtra(Constants.EXTRA_Name, mIngredient.nameIngredient);
+        intent.putExtra(Constants.EXTRA_Quantity, mIngredient.inventoryQuantity);
+        startActivityForResult(intent, Constants.EDIT_ING_ACTIVITY_REQUEST_CODE);
     }
 }
 

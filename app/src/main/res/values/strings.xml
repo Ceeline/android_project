@@ -3,7 +3,7 @@
     <string name="new_text_as_appeared_with_slide">New text as appeared with slide</string>
     <string name="hint_word">Type ingredient\'s name...</string>
     <string name="button_save">Save</string>
-    <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="empty_not_saved">Ingredient not saved because it is empty.</string>
 
     //cocktail activities
     <string name="cocktail_name">Cocktail Name: </string>

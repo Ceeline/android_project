@@ -44,7 +44,7 @@ public class Cocktail implements Parcelable {
     @ColumnInfo(name = "imageURL")
     String image;
 
-    @ColumnInfo(name = "ingredients")
+    // @ColumnInfo(name = "ingredients")
     HashMap<String, String> ingredients;     //ingredient + measure
 
     @ColumnInfo(name = "instructions")

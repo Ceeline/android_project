@@ -30,7 +30,6 @@ import mobile_dev.project.android_project.database.IngredientsViewModel;
 import static android.app.Activity.RESULT_OK;
 
 public class Shopping_List extends Fragment implements IngredientsListAdapter.OnDeleteClickListener {
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     private Context globalContext = null;
     private IngredientsViewModel mIngredientViewModel;
@@ -66,7 +65,7 @@ public class Shopping_List extends Fragment implements IngredientsListAdapter.On
             public void onClick(View view) {
                 Log.i("Celia", "clicked");
                 Intent intent = new Intent(globalContext, addNewIngredients.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, Constants.NEW_ING_ACTIVITY_REQUEST_CODE);
             }
         });
     }
@@ -74,9 +73,9 @@ public class Shopping_List extends Fragment implements IngredientsListAdapter.On
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String name = data.getStringExtra(addNewIngredients.EXTRA_Name);
-            int qty = data.getIntExtra(addNewIngredients.EXTRA_Quantity, 0);
+        if (requestCode == Constants.NEW_ING_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String name = data.getStringExtra(Constants.EXTRA_Name);
+            int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
 
             if (name != null && !name.equals("")) {
                 Ingredients ingredient = new Ingredients(name, qty, Constants.SHOPPING);

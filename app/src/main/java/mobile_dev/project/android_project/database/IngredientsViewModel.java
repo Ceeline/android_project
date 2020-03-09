@@ -11,19 +11,16 @@ public class IngredientsViewModel extends AndroidViewModel {
 
         private AppRepository mRepository;
 
-        private LiveData<List<Ingredients>> mAllIngredients;
-
         public IngredientsViewModel (Application application) {
             super(application);
             mRepository = new AppRepository(application);
-            mAllIngredients = mRepository.getAllIngredients();
         }
 
-        public LiveData<List<Ingredients>> getAllIngredients() { return mAllIngredients; }
         public LiveData<List<Ingredients>> getAllInventory() { return mRepository.getAllInventory(); }
         public LiveData<List<Ingredients>> getAllShopping() { return mRepository.getAllShopping(); }
 
         public void insert(Ingredients ingredient) { mRepository.insert(ingredient); }
         public void delete(Ingredients ingredient) { mRepository.delete(ingredient); }
         public void update(Ingredients ingredient) { mRepository.update(ingredient); }
+        public void updateQuantity(int id, int quantity) { mRepository.updateQuantity(id, quantity); }
 }

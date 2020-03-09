@@ -8,23 +8,21 @@ import java.util.List;
 
 public class AppRepository {
     private IngredientsDao mIngredientsDao;
-    private LiveData<List<Ingredients>> mAllIngredients;
 
     public AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mIngredientsDao = db.IngredientsDao();
-        mAllIngredients = mIngredientsDao.getAll();
     }
 
-    LiveData<List<Ingredients>> getAllIngredients() {
-        return mAllIngredients;
-    }
 
-    LiveData<List<Ingredients>> getAllInventory() { return mIngredientsDao.getAllInventory();
-    }
+    LiveData<List<Ingredients>> getAllInventory() { return mIngredientsDao.getAllInventory(); }
 
     LiveData<List<Ingredients>> getAllShopping() {
         return mIngredientsDao.getAllShopping();
+    }
+
+    public int checkifExist(String name) {
+        return mIngredientsDao.checkifExist(name);
     }
 
     public void insert(Ingredients ingredient) {
@@ -37,5 +35,9 @@ public class AppRepository {
 
     void update(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.update(ingredient));
+    }
+
+    void updateQuantity(int id, int quantity){
+        AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.updateQuantity(id, quantity));
     }
 }

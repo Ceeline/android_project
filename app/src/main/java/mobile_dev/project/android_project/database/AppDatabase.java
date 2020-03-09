@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract IngredientsDao IngredientsDao();
+    // public abstract CocktailsDao CocktailssDao();
 
 
     private static volatile AppDatabase INSTANCE;
@@ -40,16 +41,6 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-
-            //databaseWriteExecutor.execute(() -> {
-                //IngredientsDao dao = INSTANCE.IngredientsDao();
-                //dao.deleteAll();
-
-                /*Ingredients ingredient = new Ingredients("Ingrédient 1");
-                dao.insert(ingredient);
-                ingredient = new Ingredients("Ingrédient 2");
-                dao.insert(ingredient);*/
-           // });
         }
     };
 }

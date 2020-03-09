@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".addNewIngredients" />
         <activity android:name=".frag_Cocktail.CocktailDetail" />
+        <activity android:name=".editIngredients" />
     </application>
 
 </manifest>
