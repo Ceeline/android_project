@@ -1,7 +1,5 @@
 package mobile_dev.project.android_project.frag_Cocktail;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,17 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import mobile_dev.project.android_project.R;
 import mobile_dev.project.android_project.database.AppRepository;
 import mobile_dev.project.android_project.database.Constants;
 import mobile_dev.project.android_project.database.Ingredients;
 
-public class CocktailDetail extends AppCompatActivity implements OnPostInterface{
+public class CocktailDetail extends AppCompatActivity implements OnPostInterface {
     Cocktail cocktail;
 
     @Override
@@ -72,35 +69,34 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
 
     @Override
     public void onAddItemsClicked(View view) {
-        if (cocktail != null){
+        if (cocktail != null) {
             AppRepository mRepository = new AppRepository(this.getApplication());
 
-        AsyncTask.execute(() -> {
-                    for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
+            AsyncTask.execute(() -> {
+                for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
 
-                        // verifier si l'objet n'existe pas déjà
-                        String name = entry.getKey().trim();
-                        int exist = mRepository.checkifExist(name);
+                    // verifier si l'objet n'existe pas déjà
+                    String name = entry.getKey().trim();
+                    int exist = mRepository.checkifExist(name);
 
-                        if (exist == 0) {
-                            Ingredients ingredient;
+                    if (exist == 0) {
+                        Ingredients ingredient;
 
 
-                            try {
-                                //Retrieve the quantity
-                                String qty_text = entry.getValue().trim();
-                                String[] tab_qty = qty_text.split(" ");
-                                int qty = Integer.parseInt(tab_qty[0]);
-                                ingredient = new Ingredients(name, qty, Constants.SHOPPING);
-                            } catch (NumberFormatException nfe) {
-                                ingredient = new Ingredients(name, 1, Constants.SHOPPING);
-                            }
-
-                            mRepository.insert(ingredient);
+                        try {
+                            //Retrieve the quantity
+                            String qty_text = entry.getValue().trim();
+                            String[] tab_qty = qty_text.split(" ");
+                            int qty = Integer.parseInt(tab_qty[0]);
+                            ingredient = new Ingredients(name, qty, Constants.SHOPPING);
+                        } catch (NumberFormatException nfe) {
+                            ingredient = new Ingredients(name, 1, Constants.SHOPPING);
                         }
+
+                        mRepository.insert(ingredient);
                     }
                 }
-
-        );
+            });
+        }
     }
 }

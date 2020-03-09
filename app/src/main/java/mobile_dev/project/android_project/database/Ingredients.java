@@ -16,7 +16,7 @@ public class Ingredients {
     @ColumnInfo(name = "nameingredient")
     public String nameIngredient;
 
-    
+    @NonNull
     @ColumnInfo(name = "inventoryquantity")
     public int inventoryQuantity;
 
@@ -52,6 +52,23 @@ public class Ingredients {
             this.inventoryList = false;
             this.shoppingList = true;
         }
+    }
+
+    @NonNull
+    public String getNameIngredient() {
+        return nameIngredient;
+    }
+
+    public int getInventoryQuantity() {
+        return inventoryQuantity;
+    }
+
+    public int getShoppingQuantity() {
+        return shoppingQuantity;
+    }
+
+    public boolean isInventoryList() {
+        return inventoryList;
     }
 
 }
