@@ -26,6 +26,9 @@ public class Ingredients {
     @ColumnInfo(name = "inventoryList")
     public boolean inventoryList;
 
+    @ColumnInfo(name = "unite")
+    public String unite;
+
     @ColumnInfo(name = "shoppingList")
     public boolean shoppingList;
 
@@ -35,10 +38,11 @@ public class Ingredients {
         this.inventoryQuantity = 0;
         this.shoppingQuantity = 0;
         this.inventoryList = true;
+        this.unite = "oz";
     }
 
 
-    public Ingredients(@NonNull String nameIngredient, int inventoryQuantity, int mode) {
+    public Ingredients(@NonNull String nameIngredient, int inventoryQuantity, int mode, String unite) {
         this.nameIngredient = nameIngredient;
 
         if (mode == Constants.INVENTORY) {
@@ -46,11 +50,13 @@ public class Ingredients {
             this.shoppingQuantity = 0;
             this.inventoryList = true;
             this.shoppingList = false;
+            this.unite = unite;
         } else if (mode == Constants.SHOPPING) {
             this.inventoryQuantity = 0;
             this.shoppingQuantity = inventoryQuantity;
             this.inventoryList = false;
             this.shoppingList = true;
+            this.unite = unite;
         }
     }
 

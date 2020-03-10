@@ -3,17 +3,12 @@ package mobile_dev.project.android_project;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.List;
-
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,7 +31,7 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         globalContext = this.getActivity();
-        View root = inflater.inflate(R.layout.activity_main, null);
+        View root = inflater.inflate(R.layout.activity_inventory_list, null);
         return root;
     }
 
@@ -50,23 +45,13 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
 
         mIngredientViewModel = new ViewModelProvider(this).get(IngredientsViewModel.class);
 
-        mIngredientViewModel.getAllInventory().observe(this, new Observer<List<Ingredients>>() {
-            @Override
-            public void onChanged(@Nullable final List<Ingredients> ingredient) {
-                adapter.setIngredients(ingredient);
-            }
-        });
+        mIngredientViewModel.getAllInventory().observe(this, adapter::setIngredients);
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(globalContext, addNewIngredients.class);
-                startActivityForResult(intent, Constants.NEW_ING_ACTIVITY_REQUEST_CODE);
-            }
+        fab.setOnClickListener(view1 -> {
+            Intent intent = new Intent(globalContext, addNewIngredients.class);
+            startActivityForResult(intent, Constants.NEW_ING_ACTIVITY_REQUEST_CODE);
         });
-
-
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -77,7 +62,8 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
             int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
 
             if (name != null && !name.equals("")) {
-                Ingredients ingredient = new Ingredients(name, qty, Constants.INVENTORY);
+                // TODO ? put dropdown for unit ?
+                Ingredients ingredient = new Ingredients(name, qty, Constants.INVENTORY, null);
                 mIngredientViewModel.insert(ingredient);
             } else {
                 Toast.makeText(

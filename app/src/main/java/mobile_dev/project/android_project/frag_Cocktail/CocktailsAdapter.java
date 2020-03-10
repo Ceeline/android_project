@@ -1,12 +1,15 @@
 package mobile_dev.project.android_project.frag_Cocktail;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import mobile_dev.project.android_project.R;
 
@@ -25,8 +28,8 @@ public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
         ctxt = context;
     }
 
-
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         // Get the data item for this position
         Cocktail cocktail = getItem(position);
@@ -40,8 +43,8 @@ public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.item_cocktail_list, parent, false);
-            viewHolder.name = (TextView) convertView.findViewById(R.id.cocktail_Name);
-            viewHolder.image = (ImageView) convertView.findViewById(R.id.cocktail_Img);
+            viewHolder.name = convertView.findViewById(R.id.cocktail_Name);
+            viewHolder.image = convertView.findViewById(R.id.cocktail_Img);
 
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
@@ -53,6 +56,7 @@ public class CocktailsAdapter extends ArrayAdapter<Cocktail> {
         }
 
         // Populate the data into the template view using the data object
+        assert cocktail != null;
         viewHolder.name.setText(cocktail.name);
 
         //get images from urls

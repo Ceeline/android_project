@@ -6,14 +6,19 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
+
 public class AppRepository {
     private IngredientsDao mIngredientsDao;
+    private CocktailsDao mCocktailsDao;
 
     public AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         mIngredientsDao = db.IngredientsDao();
+        mCocktailsDao = db.CocktailsDao();
     }
 
+    LiveData<List<Cocktail>> getAllFavorite() { return mCocktailsDao.getAll(); }
 
     LiveData<List<Ingredients>> getAllInventory() { return mIngredientsDao.getAllInventory(); }
 
@@ -27,6 +32,10 @@ public class AppRepository {
 
     public void insert(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.insert(ingredient));
+    }
+
+    public void insert(Cocktail cocktail) {
+        AppDatabase.databaseWriteExecutor.execute(() -> mCocktailsDao.insert(cocktail));
     }
 
     void delete(Ingredients ingredient) {

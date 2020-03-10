@@ -34,26 +34,16 @@ public class BitmapDownloaderTask extends AsyncTask <String, Integer, Bitmap>{
     }
 
     @Override
-    protected Bitmap doInBackground(String... strings) {
+    public Bitmap doInBackground(String... strings) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(ctxt);
 
         ImageRequest imageRequest = new ImageRequest(url,
-                new Response.Listener<Bitmap>() {
-
-                    @Override
-                    public void onResponse(Bitmap response) {
-                        image.setImageBitmap(response);
-                        Log.i("IMAGE", response.toString());
-                    }
-
+                response -> {
+                    image.setImageBitmap(response);
+                    Log.i("IMAGE", response.toString());
                 }, 0, 0, ImageView.ScaleType.CENTER, null,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i("ERROR_LOG", error.toString());
-                    }
-                });
+                error -> Log.i("ERROR_LOG", error.toString()));
 
 
         // Add the request to the RequestQueue.

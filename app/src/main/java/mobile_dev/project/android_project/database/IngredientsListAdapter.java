@@ -106,6 +106,7 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
         this.mode = mode;
     }
 
+    @NonNull
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;

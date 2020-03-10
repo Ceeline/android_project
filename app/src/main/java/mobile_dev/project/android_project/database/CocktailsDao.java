@@ -21,9 +21,6 @@ public interface CocktailsDao {
     @Query("SELECT * FROM cocktails_table")
     LiveData<List<Cocktail>> getAll();
 
-    @Update
-    void update(Cocktail cocktail);
-
     @Delete
     int delete(Cocktail cocktail);
 

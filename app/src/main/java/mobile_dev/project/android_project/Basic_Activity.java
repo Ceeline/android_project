@@ -1,5 +1,6 @@
 package mobile_dev.project.android_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +51,10 @@ public class Basic_Activity extends AppCompatActivity {
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
+
+                Intent intent = new Intent(this, Favoris.class);
+                startActivity(intent);
+
                 return true;
 
             default:

@@ -1,5 +1,6 @@
 package mobile_dev.project.android_project.frag_Cocktail;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,26 +16,36 @@ import java.util.HashMap;
 public class Cocktail {
 
     @PrimaryKey(autoGenerate = true)
-    String id;
+    public int id;
+
+    @ColumnInfo(name = "idApi")
+    public String idApi;
 
     @ColumnInfo(name = "nameCocktail")
-    String name;
+    public String name;
 
     @ColumnInfo(name = "categoryCocktail")
-    String category;
+    public String category;
 
     @ColumnInfo(name = "alcoholic")
-    Boolean alcoholic;
+    public Boolean alcoholic;
 
     @ColumnInfo(name = "imageURL")
-    String image;
+    public String image;
 
-    // @ColumnInfo(name = "ingredients")
-    HashMap<String, String> ingredients;     //ingredient + measure
+    @ColumnInfo(name = "ingredients")
+    public HashMap<String, String> ingredients;     //ingredient + measure
 
     @ColumnInfo(name = "instructions")
-    String instructions;
+    public String instructions;
 
+
+    public Cocktail (@NonNull String name, boolean alcoholic, String instructions, String image){
+        this.name = name;
+        this.alcoholic = alcoholic;
+        this.instructions = instructions;
+        this.image = image;
+    }
 
 
     /* Constructor to convert JSON object into a Java class instance */
@@ -48,7 +59,7 @@ public class Cocktail {
                 this.instructions = object.getString("strInstructions");
             }
 
-            this.id = object.getString("idDrink");
+            this.idApi = object.getString("idDrink");
             this.name = object.getString("strDrink");
             this.image = object.getString("strDrinkThumb");
 
@@ -82,7 +93,7 @@ public class Cocktail {
         HashMap<String, String> ingredientsList = new HashMap<String, String>();
 
         int i = 1;
-        String ingredient = null;
+        String ingredient;
 
         try {
             do{
@@ -107,12 +118,13 @@ public class Cocktail {
         return ingredientsList;
     }
 
+    @NonNull
     @Override
     public String toString(){
         return "name: " + name + "\ncategory: " + category + "\nalcolohic: " + alcoholic + "\ningredients: " + ingredients  + "\ninstructions: " + instructions + "\nimage:" + image;
     }
 
-    public String getId(){
-        return id;
+    public String getIdApi(){
+        return idApi;
     }
 }

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-import mobile_dev.project.android_project.R;
 import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
 import mobile_dev.project.android_project.frag_Cocktail.CocktailDetail;
 import mobile_dev.project.android_project.frag_Cocktail.DownloaderTask;
@@ -57,7 +55,7 @@ public class Cocktail_List extends Fragment {
 
     public void openActivity(Cocktail cocktail) {
         Intent intent = new Intent(context, CocktailDetail.class);
-        intent.putExtra("idCocktail", cocktail.getId());
+        intent.putExtra("idCocktail", cocktail.getIdApi());
         startActivity(intent);
     }
 

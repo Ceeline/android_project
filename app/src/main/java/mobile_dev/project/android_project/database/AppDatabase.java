@@ -7,16 +7,20 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Ingredients.class}, version = 1, exportSchema = false)
+import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
+
+@Database(entities = {Ingredients.class, Cocktail.class}, version = 2, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract IngredientsDao IngredientsDao();
-    // public abstract CocktailsDao CocktailssDao();
+    public abstract CocktailsDao CocktailsDao();
 
 
     private static volatile AppDatabase INSTANCE;
@@ -29,7 +33,9 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "ingredients_database").addCallback(sRoomDatabaseCallback)
+                            AppDatabase.class, "ingredients_database")
+                            .fallbackToDestructiveMigration()
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -41,6 +47,17 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
+
+
+            //TODO delete
+            databaseWriteExecutor.execute(()->{
+                /*CocktailsDao dao = INSTANCE.CocktailsDao();
+
+                dao.deleteAll();
+                Cocktail cocktail = new Cocktail("Margarita", true, "Mix it and die!", 	"https://www.thecocktaildb.com/images/media/drink/wpxpvu1439905379.jpg");
+                dao.insert(cocktail);*/
+            });
+
         }
     };
 }

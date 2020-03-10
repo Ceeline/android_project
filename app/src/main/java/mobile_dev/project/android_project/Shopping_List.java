@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -37,7 +35,7 @@ public class Shopping_List extends Fragment implements IngredientsListAdapter.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         globalContext = this.getActivity();
-        View root = inflater.inflate(R.layout.activity_main, null);
+        View root = inflater.inflate(R.layout.activity_inventory_list, null);
         return root;
     }
 
@@ -78,7 +76,7 @@ public class Shopping_List extends Fragment implements IngredientsListAdapter.On
             int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
 
             if (name != null && !name.equals("")) {
-                Ingredients ingredient = new Ingredients(name, qty, Constants.SHOPPING);
+                Ingredients ingredient = new Ingredients(name, qty, Constants.SHOPPING, null);
                 mIngredientViewModel.insert(ingredient);
             } else {
                 Toast.makeText(
