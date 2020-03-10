@@ -60,10 +60,10 @@ public class Inventory_List extends Fragment implements IngredientsListAdapter.O
         if (requestCode == Constants.NEW_ING_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             String name = data.getStringExtra(Constants.EXTRA_Name);
             int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
+            String unit = data.getStringExtra(Constants.EXTRA_Unit);
 
             if (name != null && !name.equals("")) {
-                // TODO ? put dropdown for unit ?
-                Ingredients ingredient = new Ingredients(name, qty, Constants.INVENTORY, null);
+                Ingredients ingredient = new Ingredients(name, qty, Constants.INVENTORY, unit);
                 mIngredientViewModel.insert(ingredient);
             } else {
                 Toast.makeText(

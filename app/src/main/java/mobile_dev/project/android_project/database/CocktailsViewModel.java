@@ -11,15 +11,22 @@ import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
 
 public class CocktailsViewModel extends AndroidViewModel {
 
-        private AppRepository mRepository;
+    private AppRepository mRepository;
 
-        public CocktailsViewModel(Application application) {
-            super(application);
-            mRepository = new AppRepository(application);
-        }
+    public CocktailsViewModel(Application application) {
+        super(application);
+        mRepository = new AppRepository(application);
+    }
 
-        public LiveData<List<Cocktail>> getAll() { return mRepository.getAllFavorite(); }
+    public LiveData<List<Cocktail>> getAll() {
+        return mRepository.getAllFavorite();
+    }
 
-        public void insert(Ingredients ingredient) { mRepository.insert(ingredient); }
-        public void delete(Ingredients ingredient) { mRepository.delete(ingredient); }
+    public void insert(Cocktail cocktail) {
+        mRepository.insert(cocktail);
+    }
+
+    public void delete(Cocktail cocktail) {
+        mRepository.delete(cocktail);
+    }
 }

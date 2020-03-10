@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/textQuantity"
-        android:layout_width="117dp"
+        android:layout_width="59dp"
         android:layout_height="35dp"
         android:layout_marginTop="192dp"
         android:text="0"
@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="146dp"
+        android:layout_width="121dp"
         android:layout_height="35dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="192dp"
@@ -61,5 +61,15 @@
         android:textColor="@color/buttonLabel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/unitChoice"
+        android:layout_width="128dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="46dp"
+        android:entries="@array/unit_names"
+        android:prompt="@string/unit_prompt"
+        app:layout_constraintStart_toEndOf="@+id/textQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/edit_word" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

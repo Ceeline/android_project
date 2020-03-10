@@ -20,11 +20,13 @@ import mobile_dev.project.android_project.database.Ingredients;
 
 public class CocktailDetail extends AppCompatActivity implements OnPostInterface {
     Cocktail cocktail;
+    AppRepository mRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cocktail_detail);
+        mRepository = new AppRepository(this.getApplication());
 
         cocktail = null;
 
@@ -71,7 +73,6 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
     @Override
     public void onAddItemsClicked(View view) {
         if (cocktail != null) {
-            AppRepository mRepository = new AppRepository(this.getApplication());
 
             AsyncTask.execute(() -> {
                 for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
@@ -112,14 +113,55 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
     }
 
     public void onFavoriteClicked(View view) {
-        if (cocktail != null) {
-            //TODO check qu'il n'est pas déjà dans les favoris ? si oui estce qu'on le supprime ?
-            AppRepository mRepository = new AppRepository(this.getApplication());
-            mRepository.insert(cocktail);
-            Toast.makeText(
-                    this.getApplicationContext(),
-                    "Added to Favorite",
-                    Toast.LENGTH_LONG).show();
+        new PrivateAsyncTask(output -> {
+            if (output == 1) {
+                Toast.makeText(
+                        CocktailDetail.this,
+                        "Added to Favorite",
+                        Toast.LENGTH_LONG).show();
+            } else if (output == 2) {
+                Toast.makeText(
+                        CocktailDetail.this,
+                        "Deleted from Favorite",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(
+                        CocktailDetail.this,
+                        "Something went wrong.. try again",
+                        Toast.LENGTH_LONG).show();
+            }
+        }).execute();
+    }
+
+    private class PrivateAsyncTask extends AsyncTask<Cocktail, Void, Integer> {
+        protected Integer doInBackground(Cocktail... cocktails) {
+            if (cocktail != null) {
+                int exist = mRepository.checkExistCockatil(cocktail.idApi);
+
+                if (exist == 0) {
+                    mRepository.insert(cocktail);
+                    return 1;
+                } else {
+                    mRepository.delete(cocktail);
+                    return 2;
+                }
+            }
+            return 0;
         }
+
+        AsyncResponse delegate = null;
+
+        PrivateAsyncTask(AsyncResponse delegate) {
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            delegate.processFinish(result);
+        }
+    }
+
+    public interface AsyncResponse {
+        void processFinish(Integer output);
     }
 }

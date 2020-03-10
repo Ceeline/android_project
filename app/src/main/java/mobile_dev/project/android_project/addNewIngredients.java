@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class addNewIngredients extends AppCompatActivity {
     private EditText EditIngredientView;
     private SeekBar quantitySeekBar;
     private TextView quantityText;
+    private Spinner spinner;
 
 
     @Override
@@ -26,6 +28,7 @@ public class addNewIngredients extends AppCompatActivity {
         EditIngredientView = findViewById(R.id.edit_word);
         quantitySeekBar = findViewById(R.id.simpleSeekBar);
         quantityText = findViewById(R.id.textQuantity);
+        spinner = findViewById(R.id.unitChoice);
 
         quantitySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -54,6 +57,7 @@ public class addNewIngredients extends AppCompatActivity {
             String ingredient = EditIngredientView.getText().toString();
             replyIntent.putExtra(Constants.EXTRA_Name, ingredient);
             replyIntent.putExtra(Constants.EXTRA_Quantity, seekBarValue);
+            replyIntent.putExtra(Constants.EXTRA_Unit, String.valueOf(spinner.getSelectedItem()));
             setResult(RESULT_OK, replyIntent);
         }
         finish();

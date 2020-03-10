@@ -21,6 +21,9 @@ public interface CocktailsDao {
     @Query("SELECT * FROM cocktails_table")
     LiveData<List<Cocktail>> getAll();
 
+    @Query("SELECT count(*) FROM cocktails_table WHERE idApi = :id")
+    int checkifExist(String id);
+
     @Delete
     int delete(Cocktail cocktail);
 

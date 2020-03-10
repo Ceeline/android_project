@@ -51,11 +51,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
             //TODO delete
             databaseWriteExecutor.execute(()->{
-                /*CocktailsDao dao = INSTANCE.CocktailsDao();
+                CocktailsDao dao = INSTANCE.CocktailsDao();
 
                 dao.deleteAll();
-                Cocktail cocktail = new Cocktail("Margarita", true, "Mix it and die!", 	"https://www.thecocktaildb.com/images/media/drink/wpxpvu1439905379.jpg");
-                dao.insert(cocktail);*/
+                //Cocktail cocktail = new Cocktail("Margarita", true, "Mix it and die!", 	"https://www.thecocktaildb.com/images/media/drink/wpxpvu1439905379.jpg");
+                //dao.insert(cocktail);*/
             });
 
         }

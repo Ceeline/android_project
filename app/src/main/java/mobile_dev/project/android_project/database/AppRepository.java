@@ -29,6 +29,9 @@ public class AppRepository {
     public int checkifExist(String name) {
         return mIngredientsDao.checkifExist(name);
     }
+    public int checkExistCockatil(String id) {
+        return mCocktailsDao.checkifExist(id);
+    }
 
     public void insert(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.insert(ingredient));
@@ -40,6 +43,10 @@ public class AppRepository {
 
     void delete(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.delete(ingredient));
+    }
+
+    public void delete(Cocktail cocktail) {
+        AppDatabase.databaseWriteExecutor.execute(() -> mCocktailsDao.delete(cocktail));
     }
 
     void update(Ingredients ingredient) {
