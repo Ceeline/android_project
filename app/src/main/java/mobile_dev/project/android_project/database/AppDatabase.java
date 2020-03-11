@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
 
-@Database(entities = {Ingredients.class, Cocktail.class}, version = 2, exportSchema = false)
+@Database(entities = {Ingredients.class, Cocktail.class}, version = 3, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -47,17 +47,6 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-
-
-            //TODO delete
-            databaseWriteExecutor.execute(()->{
-                CocktailsDao dao = INSTANCE.CocktailsDao();
-
-                dao.deleteAll();
-                //Cocktail cocktail = new Cocktail("Margarita", true, "Mix it and die!", 	"https://www.thecocktaildb.com/images/media/drink/wpxpvu1439905379.jpg");
-                //dao.insert(cocktail);*/
-            });
-
         }
     };
 }

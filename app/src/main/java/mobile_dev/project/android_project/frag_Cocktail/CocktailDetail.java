@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import mobile_dev.project.android_project.R;
@@ -22,6 +24,8 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
     Cocktail cocktail;
     AppRepository mRepository;
 
+    //private  OnFavorisClickListener onFavorisClickListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +35,15 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         cocktail = null;
 
         Intent intent = getIntent();
+        //onFavorisClickListener = (OnFavorisClickListener) intent.getSerializableExtra("interface");
         String idCocktail = intent.getStringExtra("idCocktail");
+        boolean mode = intent.getBooleanExtra("mode", false);
 
         //we get the details of the cocktail chosen using its idApi
         String url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + idCocktail;
         DownloaderTask downloader = new DownloaderTask(this, url, this);
         downloader.execute();
+
     }
 
     @Override
@@ -149,7 +156,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
             return 0;
         }
 
-        AsyncResponse delegate = null;
+        AsyncResponse delegate;
 
         PrivateAsyncTask(AsyncResponse delegate) {
             this.delegate = delegate;

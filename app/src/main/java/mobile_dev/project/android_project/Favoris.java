@@ -2,7 +2,6 @@ package mobile_dev.project.android_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,7 +22,6 @@ public class Favoris extends AppCompatActivity implements CocktailsListAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview_cocktail);
 
-
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final CocktailsListAdapter adapter = new CocktailsListAdapter(this, this);
         recyclerView.setAdapter(adapter);
@@ -36,7 +34,6 @@ public class Favoris extends AppCompatActivity implements CocktailsListAdapter.O
 
     @Override
     public void OnCocktailClick(Cocktail cocktail) {
-
         Intent intent = new Intent(this, CocktailDetail.class);
         intent.putExtra("idCocktail", cocktail.getIdApi());
         startActivity(intent);

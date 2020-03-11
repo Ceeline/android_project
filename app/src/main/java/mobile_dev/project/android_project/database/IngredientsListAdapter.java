@@ -77,12 +77,9 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
                     }
                 });
 
-                btnEdit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (OnDeleteClickListener != null) {
-                            OnDeleteClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
-                        }
+                btnEdit.setOnClickListener(view -> {
+                    if (OnDeleteClickListener != null) {
+                        OnDeleteClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
                     }
                 });
             }

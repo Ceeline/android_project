@@ -4,7 +4,6 @@ public class Constants {
     public static int INVENTORY = 0;
     public static int SHOPPING = 1;
 
-
     public static final String EXTRA_Name = "Name";
     public static final String EXTRA_Quantity = "Quantity";
     public static final String EXTRA_Id = "id";

@@ -15,9 +15,8 @@ import java.util.HashMap;
 @Entity(tableName = "cocktails_table")
 public class Cocktail {
 
-    @PrimaryKey(autoGenerate = true)
-    public int id;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "idApi")
     public String idApi;
 
@@ -40,8 +39,8 @@ public class Cocktail {
     public String instructions;
 
 
-    public Cocktail (@NonNull String name, boolean alcoholic, String instructions, String image){
-        this.name = name;
+    public Cocktail (@NonNull String idApi, boolean alcoholic, String instructions, String image){
+        this.idApi = idApi;
         this.alcoholic = alcoholic;
         this.instructions = instructions;
         this.image = image;
