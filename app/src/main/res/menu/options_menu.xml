@@ -8,6 +8,13 @@
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.widget.SearchView" />
 
+    <item android:id="@+id/listview"
+        android:title="Dropdown"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/search"
+        app:actionViewClass="android.widget.ListView"/>
+
     <item
         android:id="@+id/action_favorite"
         android:icon="@drawable/ic_star_black_24dp"
