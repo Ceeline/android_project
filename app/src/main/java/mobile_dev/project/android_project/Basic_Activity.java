@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -52,6 +53,15 @@ public class Basic_Activity extends AppCompatActivity implements SearchView.OnQu
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
+
+
+        //we initialize the list of the dropdown
+        list = (ListView) menu.findItem(R.id.listview).getActionView();
+        arraylist = new ArrayList<>();
+        arraylist.add("Ingredients: Gin");
+        arraylist.add("Cocktail: Gin");
+        adapter = new DropdownListAdapter(this, arraylist);
+        list.setAdapter(adapter);
         return true;
     }
 
@@ -59,14 +69,7 @@ public class Basic_Activity extends AppCompatActivity implements SearchView.OnQu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
-                Log.i("HELLO", "Hellooo");
                 // The search button was pressed
-
-                //we initialize the list of the dropdown
-                list = findViewById(R.id.listview);
-                arraylist = new ArrayList<>();
-                adapter = new DropdownListAdapter(this, arraylist);
-                list.setAdapter(adapter);
 
                 // Create an onItemClick function for the list view
                 AdapterView.OnItemClickListener messageClickedHandler = (AdapterView<?> parent, View v, int position, long id) -> {
@@ -76,8 +79,9 @@ public class Basic_Activity extends AppCompatActivity implements SearchView.OnQu
                 // Attach the event to the listView
                 list.setOnItemClickListener(messageClickedHandler);
 
-                search = findViewById(R.id.search);
+                search = (SearchView) item.getActionView();
                 search.setOnQueryTextListener(this);
+                return true;
 
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
@@ -109,7 +113,7 @@ public class Basic_Activity extends AppCompatActivity implements SearchView.OnQu
         }else if (query.equals(arraylist.get(1))){
             url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +  input[1];
         }else {
-            //send a toast to say that the user has to choose one of the two proposition of the dropdown
+            Toast.makeText(this, "Choose one of the two options displayed", Toast.LENGTH_SHORT).show();
         }
 
         if (url != null){
@@ -118,6 +122,7 @@ public class Basic_Activity extends AppCompatActivity implements SearchView.OnQu
             downloader.execute();
         }
 
+        //TODO: handle when input gives nothing after search
         return false;
     }
 

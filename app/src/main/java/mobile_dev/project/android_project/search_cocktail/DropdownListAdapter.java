@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import mobile_dev.project.android_project.R;
 
@@ -76,12 +75,12 @@ public class DropdownListAdapter extends BaseAdapter {
 
     // Filter Class
     public void filter(String inputText) {
-        inputText = inputText.toLowerCase(Locale.getDefault());
         arrayList.clear();
         if (inputText.length() != 0) {
             arrayList.add("Ingredients: " + inputText);
             arrayList.add("Cocktail: " + inputText);
         }
+
         notifyDataSetChanged();
     }
 }
