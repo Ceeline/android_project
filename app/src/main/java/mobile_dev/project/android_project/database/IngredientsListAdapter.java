@@ -14,7 +14,6 @@ import java.util.List;
 
 import mobile_dev.project.android_project.R;
 
-import static mobile_dev.project.android_project.database.Constants.INVENTORY;
 import static mobile_dev.project.android_project.database.Constants.SHOPPING;
 
 public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsListAdapter.IngredientViewHolder> {
@@ -32,62 +31,43 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
             ingredientItemView = itemView.findViewById(R.id.textView);
             ingredientQuantityView = itemView.findViewById(R.id.qtytext);
             ingredientDelete = itemView.findViewById(R.id.btnDelete);
-            if (mode == SHOPPING) {
-                btnEdit = itemView.findViewById(R.id.btnBought);
-            } else {
-                btnEdit = itemView.findViewById(R.id.btnEdit);
-            }
+            btnEdit = itemView.findViewById(R.id.btnEdit);
         }
 
-        public void setData(String name, int quantity, int position) {
-            ingredientItemView.setText(name);
-            ingredientQuantityView.setText(String.valueOf(quantity));
+        void setData(Ingredients ingredient, int position) {
+            String displayText = ingredient.getNameIngredient();
+            int quantity;
+            if (ingredient.isInventoryList()) {
+                quantity = ingredient.getInventoryQuantity();
+            } else {
+                quantity = ingredient.getShoppingQuantity();
+            }
+            String qtyText = quantity + " " + ingredient.getUnite();
+
+            ingredientItemView.setText(displayText);
+            ingredientQuantityView.setText(qtyText);
             mPosition = position;
         }
 
-        public void setListeners() {
+        void setListeners() {
 
-            if(mode == INVENTORY) {
-                ingredientDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (OnDeleteClickListener != null) {
-                            OnDeleteClickListener.fct_OnDeleteClickListener(mIngredients.get(mPosition));
-                        }
-                    }
-                });
+            ingredientDelete.setOnClickListener(view -> {
+                if (OnDeleteClickListener != null) {
+                    OnDeleteClickListener.fct_OnDeleteClickListener(mIngredients.get(mPosition));
+                }
+            });
 
-                btnEdit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (OnDeleteClickListener != null) {
-                            OnDeleteClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
-                        }
-                    }
-                });
-            }
-
-            else if (mode == SHOPPING) {
-                ingredientDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (OnDeleteClickListener != null) {
-                            OnDeleteClickListener.fct_OnDeleteClickListener(mIngredients.get(mPosition));
-                        }
-                    }
-                });
-
-                btnEdit.setOnClickListener(view -> {
-                    if (OnDeleteClickListener != null) {
-                        OnDeleteClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
-                    }
-                });
-            }
+            btnEdit.setOnClickListener(view -> {
+                if (OnDeleteClickListener != null) {
+                    OnDeleteClickListener.fct_OnUpdateClickListener(mIngredients.get(mPosition));
+                }
+            });
         }
     }
 
     public interface OnDeleteClickListener {
         void fct_OnDeleteClickListener(Ingredients mIngredient);
+
         void fct_OnUpdateClickListener(Ingredients mIngredient);
     }
 
@@ -106,12 +86,11 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
     @NonNull
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView;
+        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
 
-        if (mode == Constants.INVENTORY) {
-            itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        } else {
-            itemView = mInflater.inflate(R.layout.recyclerview_item_shopping, parent, false);
+        if (mode == SHOPPING) {
+            ImageButton edit = itemView.findViewById(R.id.btnEdit);
+            edit.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
         }
 
         return new IngredientViewHolder(itemView);
@@ -121,11 +100,7 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
         if (mIngredients != null) {
             Ingredients current = mIngredients.get(position);
-            if (current.isInventoryList()) {
-                holder.setData(current.getNameIngredient(), current.getInventoryQuantity(), position);
-            } else {
-                holder.setData(current.getNameIngredient(), current.getShoppingQuantity(), position);
-            }
+            holder.setData(current, position);
             holder.setListeners();
         } else {
             holder.ingredientItemView.setText("No Ingredients");

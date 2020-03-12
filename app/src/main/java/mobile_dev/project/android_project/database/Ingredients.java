@@ -77,4 +77,8 @@ public class Ingredients {
         return inventoryList;
     }
 
+    public String getUnite() {
+        return unite;
+    }
+
 }

@@ -6,10 +6,10 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
-import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
 
 import java.util.List;
+
+import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
 
 @Dao
 public interface CocktailsDao {

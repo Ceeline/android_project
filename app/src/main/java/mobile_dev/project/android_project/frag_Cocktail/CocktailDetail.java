@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import mobile_dev.project.android_project.R;
@@ -111,7 +110,9 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
                             int qty = Integer.parseInt(tab_qty[0]);
                             String unit = null;
                             if (tab_qty.length > 1) {
-                                unit = tab_qty[1];
+                                if(tab_qty[1].equals("null")){
+                                    unit = tab_qty[1];
+                                }
                             }
                             ingredient = new Ingredients(name, qty, Constants.SHOPPING, unit);
                         } catch (NumberFormatException nfe) {
@@ -125,7 +126,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
             Toast.makeText(
                     this.getApplicationContext(),
                     "Added to Shopping List",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -136,18 +137,18 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
                 Toast.makeText(
                         CocktailDetail.this,
                         "Added to Favorite",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             } else if (output == 2) {
                 btnFavorite.setImageResource(R.drawable.ic_star_border_black_24dp);
                 Toast.makeText(
                         CocktailDetail.this,
                         "Deleted from Favorite",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(
                         CocktailDetail.this,
                         "Something went wrong.. try again",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
         }).execute();
     }

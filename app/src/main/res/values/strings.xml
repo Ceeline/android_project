@@ -30,10 +30,13 @@
     <string name="tab_text_3">Shopping List</string>
 
     //dropdown list unit for ingredients
-    <string name="unit_prompt">Choose a filter</string>
+    <string name="unit_prompt">Choose a unit</string>
     <string-array name="unit_names">
         <item>oz</item>
         <item>tsp</item>
+        <item>cl</item>
+        <item>dash</item>
+        <item>part</item>
         <item></item>
     </string-array>
 
