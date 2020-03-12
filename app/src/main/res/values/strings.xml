@@ -23,15 +23,11 @@
         <item>Category</item>
     </string-array>
 
-
-
     //Tabs name
     <string name="title_activity_basic_">Basic_Activity</string>
     <string name="tab_text_1">Inventory</string>
     <string name="tab_text_2">Cocktails</string>
     <string name="tab_text_3">Shopping List</string>
-
-
 
     //dropdown list unit for ingredients
     <string name="unit_prompt">Choose a filter</string>
@@ -40,5 +36,13 @@
         <item>tsp</item>
         <item></item>
     </string-array>
+
+    //search function
+    <string name="searchTxt">What are you looking for?</string>
+    <string name="inputSearch">Name</string>
+    <string name="ingredientBtn">Ingredient</string>
+    <string name="cocktailBtn">Cocktail</string>
+    <string name="searchBtn">Search</string>
+
 
 </resources>

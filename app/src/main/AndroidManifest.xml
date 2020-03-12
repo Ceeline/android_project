@@ -11,10 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".searchActivity"></activity>
         <activity android:name=".Basic_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
@@ -22,9 +25,12 @@
         <activity android:name=".frag_Cocktail.CocktailDetail" />
         <activity android:name=".editIngredients" />
         <activity android:name=".Favoris" />
-        <receiver android:name=".CocktailBroadcastReceiver"  android:exported="true">
+
+        <receiver
+            android:name=".CocktailBroadcastReceiver"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>

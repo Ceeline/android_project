@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
+import mobile_dev.project.android_project.database.Constants;
 import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
 import mobile_dev.project.android_project.frag_Cocktail.CocktailDetail;
 import mobile_dev.project.android_project.frag_Cocktail.DownloaderTask;
+
+import static android.app.Activity.RESULT_OK;
 
 public class Cocktail_List extends Fragment {
     char filter;
@@ -28,6 +34,7 @@ public class Cocktail_List extends Fragment {
                              Bundle savedInstanceState) {
         context = this.getContext();
         View root = inflater.inflate(R.layout.activity_cocktail__list, null);
+
         return root;
     }
 
@@ -51,6 +58,23 @@ public class Cocktail_List extends Fragment {
 
         // Attach the event to the listView
         listView.setOnItemClickListener(messageClickedHandler);
+
+        FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(view1 -> {
+            Intent intent = new Intent (context, searchActivity.class);
+            startActivityForResult(intent, 1);
+        });
+
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String url = data.getStringExtra("URL");
+            getCocktailsFromApi(url);
+        }
     }
 
     public void openActivity(Cocktail cocktail) {
@@ -114,19 +138,17 @@ public class Cocktail_List extends Fragment {
 
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String choice = parent.getItemAtPosition(pos).toString();
-                ListView listView = mView.findViewById(R.id.listCocktails);
 
                 //we get the url for the request to the API
                 String url;
                 if (filter == 'l'){
-                    url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + choice;
+                        url = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" + choice;
                 }
                 else{
                     url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?" + filter + "=" + choice;
                 }
 
-                DownloaderTask downloader = new DownloaderTask(context, listView, url);
-                downloader.execute();
+                getCocktailsFromApi(url);
             }
 
             @Override
@@ -138,4 +160,9 @@ public class Cocktail_List extends Fragment {
         spinnerChoice.setOnItemSelectedListener(new CustomOnChoiceSelectedListener());
     }
 
+    public void getCocktailsFromApi(String url){
+        ListView listView = mView.findViewById(R.id.listCocktails);
+        DownloaderTask downloader = new DownloaderTask(context, listView, url);
+        downloader.execute();
+    }
 }
