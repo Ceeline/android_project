@@ -23,8 +23,7 @@ import mobile_dev.project.android_project.database.Ingredients;
 public class CocktailDetail extends AppCompatActivity implements OnPostInterface {
     Cocktail cocktail;
     AppRepository mRepository;
-
-    //private  OnFavorisClickListener onFavorisClickListener;
+    ImageButton btnFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +31,11 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         setContentView(R.layout.activity_cocktail_detail);
         mRepository = new AppRepository(this.getApplication());
 
+        btnFavorite = findViewById(R.id.btnFavorite);
         cocktail = null;
 
         Intent intent = getIntent();
-        //onFavorisClickListener = (OnFavorisClickListener) intent.getSerializableExtra("interface");
         String idCocktail = intent.getStringExtra("idCocktail");
-        boolean mode = intent.getBooleanExtra("mode", false);
 
         //we get the details of the cocktail chosen using its idApi
         String url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + idCocktail;
@@ -59,6 +57,18 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         BitmapDownloaderTask bitmapDownloader = new BitmapDownloaderTask(this, cocktail.image, image);
         bitmapDownloader.execute();
 
+        //set image for favorite button
+        AsyncTask.execute(() -> {
+            int exist = mRepository.checkExistCockatil(cocktail.idApi);
+
+            if (exist == 0) {
+                btnFavorite.setImageResource(R.drawable.ic_star_border_black_24dp);
+            } else {
+                btnFavorite.setImageResource(R.drawable.ic_star_blue_24dp);
+            }
+        });
+
+
         TextView ingredients = findViewById(R.id.ingredientsTxt);
         ingredients.setText(displayIngredients(cocktail));
 
@@ -71,7 +81,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         StringBuilder ingredientsStructured = new StringBuilder("Ingredients: \n");
 
         for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
-            ingredientsStructured.append("-> " + entry.getKey() + ": " + entry.getValue() + "\n");
+            ingredientsStructured.append("\u2022 " + entry.getKey() + ": " + entry.getValue() + "\n");
         }
 
         return ingredientsStructured.toString();
@@ -122,11 +132,13 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
     public void onFavoriteClicked(View view) {
         new PrivateAsyncTask(output -> {
             if (output == 1) {
+                btnFavorite.setImageResource(R.drawable.ic_star_blue_24dp);
                 Toast.makeText(
                         CocktailDetail.this,
                         "Added to Favorite",
                         Toast.LENGTH_LONG).show();
             } else if (output == 2) {
+                btnFavorite.setImageResource(R.drawable.ic_star_border_black_24dp);
                 Toast.makeText(
                         CocktailDetail.this,
                         "Deleted from Favorite",
