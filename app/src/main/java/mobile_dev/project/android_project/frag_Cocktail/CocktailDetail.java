@@ -45,7 +45,6 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
 
     @Override
     public void onPostExecute(Cocktail cocktail) {
-        Log.i("COCKTAIL", cocktail.toString());
         this.cocktail = cocktail;
 
         TextView name = findViewById(R.id.NameTxt);
@@ -78,6 +77,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
     private String displayIngredients(Cocktail cocktail) {
         StringBuilder ingredientsStructured = new StringBuilder();
 
+        // Format the cocktail Ingredient
         for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
             ingredientsStructured.append("\u2022 " + entry.getKey() + ": " + entry.getValue() + "\n");
         }
@@ -90,34 +90,58 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         if (cocktail != null) {
 
             AsyncTask.execute(() -> {
-                for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
+               for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
 
-                    // verifier si l'objet n'existe pas déjà
+                    // verify that the object doesn't exist yet
                     String name = entry.getKey().trim();
                     int exist = mRepository.checkifExist(name);
 
                     if (exist == 0) {
                         Ingredients ingredient;
 
-
                         try {
                             //Retrieve the quantity
                             String qty_text = entry.getValue().trim();
-                            String[] tab_qty = qty_text.split(" ");
-
-                            //TODO gérer les fractions
-                            int qty = Integer.parseInt(tab_qty[0]);
                             String unit = null;
-                            if (tab_qty.length > 1) {
-                                if(tab_qty[1].equals("null")){
-                                    unit = tab_qty[1];
-                                }
+
+
+                            // Separate the quantities from units
+
+                            int i = 0;
+                            while(i < qty_text.length() && checkChar(qty_text.charAt(i))){
+                                i++;
                             }
-                            ingredient = new Ingredients(name, qty, Constants.SHOPPING, unit);
+
+                            String full_qty = qty_text.substring(0, i-1);
+                            Log.i("celia", "s = "+ full_qty);
+                            if(i < qty_text.length()){
+                                unit = qty_text.substring(i);
+                            }
+
+                            // Check if the quantity has the shape 1 1/2 for example
+                            int sum = 0;
+                            String[] tab_qty = full_qty.trim().split(" ");
+
+
+                            String[] tab_qty_frac = tab_qty[tab_qty.length - 1].split("/");
+                            int qty = Integer.parseInt(tab_qty_frac[0]);
+                            if(tab_qty_frac.length > 1){
+                                int qty2 = Integer.parseInt(tab_qty_frac[1]);
+                                qty = (int) Math.ceil((double) qty / (double) qty2);
+                            }
+
+                            if(tab_qty.length > 1){
+                                sum += Integer.parseInt(tab_qty[0]);
+                            }
+                            sum += qty;
+
+                            // Create the new ingredient
+                            ingredient = new Ingredients(name, sum, Constants.SHOPPING, unit);
                         } catch (NumberFormatException nfe) {
                             ingredient = new Ingredients(name, 1, Constants.SHOPPING, null);
                         }
 
+                        // Insert in the BDD
                         mRepository.insert(ingredient);
                     }
                 }
@@ -127,6 +151,11 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
                     "Added to Shopping List",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static boolean checkChar(char ch){
+        // Check if the char is a number or space or '/'
+        return (ch == 32 || ch == 47 || (ch < 58 && ch > 48));
     }
 
     public void onFavoriteClicked(View view) {

@@ -21,6 +21,7 @@ import mobile_dev.project.android_project.ingredient_data_ui.IngredientsDao;
 @Database(entities = {Ingredients.class, Cocktail.class}, version = 3, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
+    /* Create the database of our application*/
 
     public abstract IngredientsDao IngredientsDao();
     public abstract CocktailsDao CocktailsDao();

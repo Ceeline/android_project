@@ -38,7 +38,7 @@ public class Converters {
         for (Map.Entry<String, String> entry : ingredients.entrySet()) {
             str.append(entry.getKey() + '-' + entry.getKey() + '-');
         }
-        Log.i("celia", str.toString());
+
         return str.toString();
     }
 }

@@ -56,7 +56,10 @@ public class Inventory_List_Frag extends Fragment implements IngredientsListAdap
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (requestCode == Constants.NEW_ING_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            /* save in the BDD the new ingredient */
+
             String name = data.getStringExtra(Constants.EXTRA_Name);
             int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
             String unit = data.getStringExtra(Constants.EXTRA_Unit);
@@ -73,6 +76,7 @@ public class Inventory_List_Frag extends Fragment implements IngredientsListAdap
 
         } else if (requestCode == Constants.EDIT_ING_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
+            /* save in the BDD the modification made to the ingredient */
 
             int qty = data.getIntExtra(Constants.EXTRA_Quantity, 0);
             int id = data.getIntExtra(Constants.EXTRA_Id, 0);
@@ -88,6 +92,8 @@ public class Inventory_List_Frag extends Fragment implements IngredientsListAdap
 
     @Override
     public void fct_OnDeleteClickListener(Ingredients mIngredient) {
+        // Delete the ingredient
+
         if (!mIngredient.shoppingList) {
             mIngredientViewModel.delete(mIngredient);
         } else {
@@ -99,6 +105,8 @@ public class Inventory_List_Frag extends Fragment implements IngredientsListAdap
 
     @Override
     public void fct_OnUpdateClickListener(Ingredients mIngredient) {
+        // Start the edit activity with the info of the ingredient
+
         Intent intent = new Intent(globalContext, editIngredients_Activity.class);
         intent.putExtra(Constants.EXTRA_Id, mIngredient.idIngredient);
         intent.putExtra(Constants.EXTRA_Name, mIngredient.nameIngredient);

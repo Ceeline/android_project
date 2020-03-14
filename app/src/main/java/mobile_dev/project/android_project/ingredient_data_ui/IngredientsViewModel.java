@@ -24,5 +24,5 @@ public class IngredientsViewModel extends AndroidViewModel {
         public void insert(Ingredients ingredient) { mRepository.insert(ingredient); }
         public void delete(Ingredients ingredient) { mRepository.delete(ingredient); }
         public void update(Ingredients ingredient) { mRepository.update(ingredient); }
-        public void updateQuantity(int id, int quantity) { mRepository.updateQuantity(id, quantity); }
+        public void updateQuantity(int id, int quantity) { mRepository.updateInventoryQuantity(id, quantity); }
 }

@@ -32,6 +32,7 @@ public class AppRepository {
     public int checkifExist(String name) {
         return mIngredientsDao.checkifExist(name);
     }
+
     public int checkExistCockatil(String id) {
         return mCocktailsDao.checkifExist(id);
     }
@@ -56,7 +57,7 @@ public class AppRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.update(ingredient));
     }
 
-    public void updateQuantity(int id, int quantity){
-        AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.updateQuantity(id, quantity));
+    public void updateInventoryQuantity(int id, int quantity){
+        AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.updateInventoryQuantity(id, quantity));
     }
 }

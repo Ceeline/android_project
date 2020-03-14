@@ -25,6 +25,7 @@ public class Basic_Activity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
 
+        /* create the tabs layout */
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

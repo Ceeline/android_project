@@ -154,6 +154,7 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
 
     @Override
     public void OnCocktailClick(Cocktail cocktail) {
+        // Display info of the selected cocktail
         Intent intent = new Intent(this.getContext(), CocktailDetail.class);
         intent.putExtra("idCocktail", cocktail.getIdApi());
         startActivity(intent);

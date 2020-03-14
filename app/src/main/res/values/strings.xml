@@ -30,6 +30,7 @@
     <string-array name="unit_names">
         <item>oz</item>
         <item>tsp</item>
+        <item>tblsp</item>
         <item>cl</item>
         <item>dash</item>
         <item>part</item>

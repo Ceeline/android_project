@@ -32,6 +32,7 @@ public class Favoris_Activity extends AppCompatActivity implements CocktailsList
 
     @Override
     public void OnCocktailClick(Cocktail cocktail) {
+        // Display info of the selected cocktail
         Intent intent = new Intent(this, CocktailDetail.class);
         intent.putExtra("idCocktail", cocktail.getIdApi());
         startActivity(intent);

@@ -23,7 +23,7 @@ public interface IngredientsDao {
     LiveData<List<Ingredients>> getAllShopping();
 
     @Query("UPDATE ingredients_table SET inventoryQuantity = :quantity WHERE idIngredient = :id")
-    void updateQuantity(int id, int quantity);
+    void updateInventoryQuantity(int id, int quantity);
 
     @Query("SELECT count(*) FROM ingredients_table WHERE nameingredient = :name")
     int checkifExist(String name);

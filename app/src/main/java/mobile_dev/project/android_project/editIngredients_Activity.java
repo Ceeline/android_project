@@ -55,6 +55,8 @@ public class editIngredients_Activity extends AppCompatActivity {
     public void onClickSave(View view) {
         int seekBarValue = quantitySeekBar.getProgress();
 
+        /* send the infos of edit to the previous activity */
+
         Intent replyIntent = new Intent();
         if (TextUtils.isEmpty(EditIngredientView.getText())) {
             setResult(RESULT_CANCELED, replyIntent);
