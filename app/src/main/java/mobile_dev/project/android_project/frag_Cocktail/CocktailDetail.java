@@ -72,11 +72,11 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         ingredients.setText(displayIngredients(cocktail));
 
         TextView instructions = findViewById(R.id.instructionsTxt);
-        instructions.setText(String.format("Instructions: \n%s", cocktail.instructions));
+        instructions.setText(String.format("%s", cocktail.instructions));
     }
 
     private String displayIngredients(Cocktail cocktail) {
-        StringBuilder ingredientsStructured = new StringBuilder("Ingredients: \n");
+        StringBuilder ingredientsStructured = new StringBuilder();
 
         for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
             ingredientsStructured.append("\u2022 " + entry.getKey() + ": " + entry.getValue() + "\n");

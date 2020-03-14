@@ -74,22 +74,36 @@
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
-                    android:id="@+id/ingredientsTxt"
+                    android:id="@+id/ingredients"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:text="@string/cocktail_ingredient"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/instructionsTxt"
+                    android:id="@+id/ingredientsTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/instructions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cocktail_instruction"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/instructionsTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
         </ScrollView>
