@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import mobile_dev.project.android_project.Cocktail_List;
+import mobile_dev.project.android_project.Cocktail_List_Recycler;
 import mobile_dev.project.android_project.Inventory_List;
 import mobile_dev.project.android_project.R;
 import mobile_dev.project.android_project.Shopping_List;
@@ -37,7 +38,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }else if(position == 2){
             return new Shopping_List();
         }
-        return new Cocktail_List();
+        //return new Cocktail_List();
+        return new Cocktail_List_Recycler();
     }
 
     @Nullable

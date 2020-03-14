@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mobile_dev.project.android_project.R;
 
@@ -71,7 +72,7 @@ public class DownloaderTask extends AsyncTask <String, Integer, Cocktail>{
                         }
 
                         if (listCocktails != null){
-                            ArrayList<Cocktail> newCocktails = null;
+                            List<Cocktail> newCocktails = null;
                             newCocktails = Cocktail.fromJson(jsonArray);
                             adapter.addAll(newCocktails);
                             adapter.notifyDataSetChanged();

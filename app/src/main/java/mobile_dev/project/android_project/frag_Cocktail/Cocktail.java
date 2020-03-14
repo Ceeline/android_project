@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Entity(tableName = "cocktails_table")
 public class Cocktail {
@@ -68,7 +69,7 @@ public class Cocktail {
     }
 
     /* method to convert an array of JSON objects into a list of Cocktail objects */
-    public static ArrayList<Cocktail> fromJson(JSONArray jsonArray) {
+    public static List<Cocktail> fromJson(JSONArray jsonArray) {
 
         ArrayList<Cocktail> cocktails = new ArrayList<Cocktail>();
 
