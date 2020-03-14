@@ -10,6 +10,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,6 +82,17 @@ public class Cocktail {
                 e.printStackTrace();
             }
         }
+
+        //sort cocktails by name
+        class Sortbyname implements Comparator<Cocktail>
+        {
+            public int compare(Cocktail a, Cocktail b)
+            {
+                return a.name.compareTo(b.name);
+            }
+        }
+
+        Collections.sort(cocktails, new Sortbyname());
         return cocktails;
     }
 
@@ -127,4 +140,6 @@ public class Cocktail {
     public String getIdApi(){
         return idApi;
     }
+
+
 }
