@@ -48,7 +48,7 @@ public class search_Activity extends AppCompatActivity {
             finish();
 
         }else {
-            Toast.makeText(this, "Choose between ingredient and cocktail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Choose between 'Ingredient' and 'Cocktail'", Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -3,6 +3,7 @@ package mobile_dev.project.android_project.cocktail_data_ui;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -57,7 +58,10 @@ public class CocktailAPIViewModel extends AndroidViewModel {
                             cocktailsList.setValue(cocktails);
                         }
 
-                    }, error -> Log.i("ERROR_LOG", String.valueOf(error)));
+                    }, error -> {
+                        Log.i("ERROR_LOG", String.valueOf(error));
+                        Toast.makeText(context, "No result found", Toast.LENGTH_LONG).show();
+                    });
 
             // Add the request to the RequestQueue.
             queue.add(jsonObjectRequest);
