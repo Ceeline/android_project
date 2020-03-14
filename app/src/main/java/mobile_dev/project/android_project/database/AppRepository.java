@@ -6,11 +6,14 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import mobile_dev.project.android_project.cocktail_data_ui.CocktailsDao;
 import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
+import mobile_dev.project.android_project.ingredient_data_ui.Ingredients;
+import mobile_dev.project.android_project.ingredient_data_ui.IngredientsDao;
 
 public class AppRepository {
-    private IngredientsDao mIngredientsDao;
-    private CocktailsDao mCocktailsDao;
+    private final IngredientsDao mIngredientsDao;
+    private final CocktailsDao mCocktailsDao;
 
     public AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
@@ -18,11 +21,11 @@ public class AppRepository {
         mCocktailsDao = db.CocktailsDao();
     }
 
-    LiveData<List<Cocktail>> getAllFavorite() { return mCocktailsDao.getAll(); }
+    public LiveData<List<Cocktail>> getAllFavorite() { return mCocktailsDao.getAll(); }
 
-    LiveData<List<Ingredients>> getAllInventory() { return mIngredientsDao.getAllInventory(); }
+    public LiveData<List<Ingredients>> getAllInventory() { return mIngredientsDao.getAllInventory(); }
 
-    LiveData<List<Ingredients>> getAllShopping() {
+    public LiveData<List<Ingredients>> getAllShopping() {
         return mIngredientsDao.getAllShopping();
     }
 
@@ -41,7 +44,7 @@ public class AppRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> mCocktailsDao.insert(cocktail));
     }
 
-    void delete(Ingredients ingredient) {
+    public void delete(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.delete(ingredient));
     }
 
@@ -49,11 +52,11 @@ public class AppRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> mCocktailsDao.delete(cocktail));
     }
 
-    void update(Ingredients ingredient) {
+    public void update(Ingredients ingredient) {
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.update(ingredient));
     }
 
-    void updateQuantity(int id, int quantity){
+    public void updateQuantity(int id, int quantity){
         AppDatabase.databaseWriteExecutor.execute(() -> mIngredientsDao.updateQuantity(id, quantity));
     }
 }

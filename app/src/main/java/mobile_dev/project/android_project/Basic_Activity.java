@@ -45,23 +45,17 @@ public class Basic_Activity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch (item.getItemId()) {
-            case R.id.action_favorite:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+        if (item.getItemId() == R.id.action_favorite) {
+            // User chose the "Favorite" action
 
-                intent = new Intent(this, Favoris.class);
-                startActivity(intent);
+            intent = new Intent(this, Favoris_Activity.class);
+            startActivity(intent);
 
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                // throw error
-                return super.onOptionsItemSelected(item);
-
+            return true;
         }
+        // If we got here, the user's action was not recognized.
+        // throw error
+        return super.onOptionsItemSelected(item);
     }
 
 }

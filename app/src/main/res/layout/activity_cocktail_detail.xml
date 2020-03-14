@@ -60,7 +60,8 @@
             android:onClick="onFavoriteClicked"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_star_border_black_24dp" />
+            app:srcCompat="@drawable/ic_star_border_black_24dp"
+            android:contentDescription="@string/starfavorite" />
 
         <TextView
             android:id="@+id/ingredientsTxt"

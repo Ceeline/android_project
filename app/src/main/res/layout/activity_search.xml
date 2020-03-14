@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".searchActivity">
+    tools:context=".search_Activity">
 
 
     <LinearLayout
@@ -17,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/searchTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/searchTxt" />
@@ -28,7 +27,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="@string/inputSearch" />
+            android:hint="@string/inputSearch"
+            android:importantForAutofill="no" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -42,14 +42,12 @@
                 android:text="@string/ingredientBtn" />
 
             <RadioButton
-                android:id="@+id/cocktailBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/cocktailBtn" />
         </RadioGroup>
 
         <Button
-            android:id="@+id/searchBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickSearchBtn"

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Cocktails</string>
-    <string name="new_text_as_appeared_with_slide">New text as appeared with slide</string>
-    <string name="hint_word">Type ingredient\'s name...</string>
+    <string name="hint_word">Type ingredient\'s name…</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Ingredient not saved because it is empty.</string>
 
@@ -10,9 +9,7 @@
     <string name="cocktail_ingredient">Ingredients: </string>
     <string name="cocktail_instruction">Instructions: </string>
     <string name="cocktail_descriptionImg">Image describing the cocktail</string>
-    <string name="cocktail_switch">Only show feasible cocktails</string>
     <string name="cocktail_filter">Filter by: </string>
-    <string name="cocktail_letter">List of cocktail with first letter: </string>
     <string name="add_missing_items">Add missing items to the shopping list</string>
 
     //dropdown list in cocktail list activity: filter
@@ -24,7 +21,6 @@
     </string-array>
 
     //Tabs name
-    <string name="title_activity_basic_">Basic_Activity</string>
     <string name="tab_text_1">Inventory</string>
     <string name="tab_text_2">Cocktails</string>
     <string name="tab_text_3">Shopping List</string>
@@ -46,6 +42,16 @@
     <string name="ingredientBtn">Ingredient</string>
     <string name="cocktailBtn">Cocktail</string>
     <string name="searchBtn">Search</string>
+    <string name="_default_qty">0</string>
+    <string name="selected_quantity">Selected quantity:</string>
+    <string name="my_favorite">My favorites</string>
+    <string name="favorite">favorite</string>
+    <string name="default_cocktail_image">Default Cocktail Image</string>
+    <string name="edit_button">Edit Button</string>
+    <string name="starfavorite">starFavorite</string>
+    <string name="delete_button">Delete Button</string>
+    <string name="no_ingredient">No Ingredients</string>
+    <string name="no_cocktail">No Cocktails</string>
 
 
 </resources>

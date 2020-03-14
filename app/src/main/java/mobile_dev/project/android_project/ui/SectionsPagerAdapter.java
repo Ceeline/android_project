@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import mobile_dev.project.android_project.Cocktail_List;
-import mobile_dev.project.android_project.Cocktail_List_Recycler;
-import mobile_dev.project.android_project.Inventory_List;
+import mobile_dev.project.android_project.Cocktail_List_Frag;
+import mobile_dev.project.android_project.Inventory_List_Frag;
 import mobile_dev.project.android_project.R;
-import mobile_dev.project.android_project.Shopping_List;
+import mobile_dev.project.android_project.Shopping_List_Frag;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -34,12 +33,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if(position == 0){
-            return new Inventory_List();
+            return new Inventory_List_Frag();
         }else if(position == 2){
-            return new Shopping_List();
+            return new Shopping_List_Frag();
         }
-        //return new Cocktail_List();
-        return new Cocktail_List_Recycler();
+        return new Cocktail_List_Frag();
     }
 
     @Nullable

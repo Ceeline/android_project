@@ -13,7 +13,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import mobile_dev.project.android_project.cocktail_data_ui.CocktailsDao;
 import mobile_dev.project.android_project.frag_Cocktail.Cocktail;
+import mobile_dev.project.android_project.ingredient_data_ui.Ingredients;
+import mobile_dev.project.android_project.ingredient_data_ui.IngredientsDao;
 
 @Database(entities = {Ingredients.class, Cocktail.class}, version = 3, exportSchema = false)
 @TypeConverters({Converters.class})
@@ -43,7 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);

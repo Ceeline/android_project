@@ -5,27 +5,16 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.ListView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 //to retrieve data from the API
 public class BitmapDownloaderTask extends AsyncTask <String, Integer, Bitmap>{
-    private Context ctxt;
-    private ImageView image;
-    String url;
+    private final Context ctxt;
+    private final ImageView image;
+    private final String url;
 
     public BitmapDownloaderTask(Context ctxt, String url, final ImageView image) {
         this.ctxt = ctxt;

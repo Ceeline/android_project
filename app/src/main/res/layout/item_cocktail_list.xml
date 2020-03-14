@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/cocktail_Img"
         android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:contentDescription="@string/default_cocktail_image" />
 
     <TextView
         android:id="@+id/cocktail_Name"

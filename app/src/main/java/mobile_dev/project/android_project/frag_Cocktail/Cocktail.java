@@ -71,7 +71,7 @@ public class Cocktail {
     /* method to convert an array of JSON objects into a list of Cocktail objects */
     public static List<Cocktail> fromJson(JSONArray jsonArray) {
 
-        ArrayList<Cocktail> cocktails = new ArrayList<Cocktail>();
+        ArrayList<Cocktail> cocktails = new ArrayList<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
@@ -84,13 +84,12 @@ public class Cocktail {
     }
 
     public static Cocktail fromJson(JSONObject jsonObject) {
-        Cocktail cocktail = new Cocktail(jsonObject, 1);
-        return cocktail;
+        return new Cocktail(jsonObject, 1);
     }
 
     /* Gets the list of ingredients for the cocktail */
-    public HashMap<String, String> getIngredients (JSONObject object){
-        HashMap<String, String> ingredientsList = new HashMap<String, String>();
+    private HashMap<String, String> getIngredients(JSONObject object){
+        HashMap<String, String> ingredientsList = new HashMap<>();
 
         int i = 1;
         String ingredient;
@@ -124,6 +123,7 @@ public class Cocktail {
         return "name: " + name + "\ncategory: " + category + "\nalcolohic: " + alcoholic + "\ningredients: " + ingredients  + "\ninstructions: " + instructions + "\nimage:" + image;
     }
 
+    @NonNull
     public String getIdApi(){
         return idApi;
     }

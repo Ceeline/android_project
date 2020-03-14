@@ -17,12 +17,12 @@ import java.util.Map;
 import mobile_dev.project.android_project.R;
 import mobile_dev.project.android_project.database.AppRepository;
 import mobile_dev.project.android_project.database.Constants;
-import mobile_dev.project.android_project.database.Ingredients;
+import mobile_dev.project.android_project.ingredient_data_ui.Ingredients;
 
 public class CocktailDetail extends AppCompatActivity implements OnPostInterface {
-    Cocktail cocktail;
-    AppRepository mRepository;
-    ImageButton btnFavorite;
+    private Cocktail cocktail;
+    private AppRepository mRepository;
+    private ImageButton btnFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +75,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         instructions.setText(String.format("Instructions: \n%s", cocktail.instructions));
     }
 
-    @Override
-    public String displayIngredients(Cocktail cocktail) {
+    private String displayIngredients(Cocktail cocktail) {
         StringBuilder ingredientsStructured = new StringBuilder("Ingredients: \n");
 
         for (Map.Entry<String, String> entry : cocktail.ingredients.entrySet()) {
@@ -169,7 +168,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
             return 0;
         }
 
-        AsyncResponse delegate;
+        final AsyncResponse delegate;
 
         PrivateAsyncTask(AsyncResponse delegate) {
             this.delegate = delegate;
@@ -181,7 +180,7 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         }
     }
 
-    public interface AsyncResponse {
+    interface AsyncResponse {
         void processFinish(Integer output);
     }
 }

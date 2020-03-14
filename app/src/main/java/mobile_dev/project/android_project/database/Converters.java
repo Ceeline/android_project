@@ -16,7 +16,7 @@ public class Converters {
         }
 
         String[] ingredients = value.split("-");
-        HashMap<String, String> ingredientsList = new HashMap<String, String>();
+        HashMap<String, String> ingredientsList = new HashMap<>();
 
         for (int i = 1; i < ingredients.length; i++) {
             if(!ingredients[i].equals("")){
