@@ -8,17 +8,19 @@
         android:id="@+id/edit_word"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="108dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-light"
         android:hint="@string/hint_word"
+        android:importantForAutofill="no"
         android:inputType="textAutoComplete"
         android:padding="@dimen/small_padding"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textQuantity"
@@ -41,16 +43,18 @@
 
     <SeekBar
         android:id="@+id/simpleSeekBar"
-        android:layout_width="310dp"
+        android:layout_width="0dp"
         android:layout_height="61dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="227dp"
+        android:layout_marginEnd="51dp"
         android:max="50"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:background="@color/colorPrimary"
@@ -58,6 +62,7 @@
         android:text="@string/button_save"
         android:textColor="@color/buttonLabel"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
@@ -65,8 +70,10 @@
         android:layout_width="128dp"
         android:layout_height="37dp"
         android:layout_marginTop="46dp"
+        android:layout_marginEnd="51dp"
         android:entries="@array/unit_names"
         android:prompt="@string/unit_prompt"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textQuantity"
         app:layout_constraintTop_toBottomOf="@+id/edit_word" />
 
