@@ -3,7 +3,6 @@ package mobile_dev.project.android_project.frag_Cocktail;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,9 +33,10 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
         cocktail = null;
 
         Intent intent = getIntent();
+        // we get the id of the cocktail to display
         String idCocktail = intent.getStringExtra("idCocktail");
 
-        //we get the details of the cocktail chosen using its idApi
+        //we get the details of the cocktail chosen using its id
         String url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + idCocktail;
         DownloaderTask downloader = new DownloaderTask(this, url, this);
         downloader.execute();
@@ -113,7 +113,6 @@ public class CocktailDetail extends AppCompatActivity implements OnPostInterface
                             }
 
                             String full_qty = qty_text.substring(0, i-1);
-                            Log.i("celia", "s = "+ full_qty);
                             if(i < qty_text.length()){
                                 unit = qty_text.substring(i);
                             }

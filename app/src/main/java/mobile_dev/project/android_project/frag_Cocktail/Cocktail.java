@@ -84,7 +84,7 @@ public class Cocktail {
         }
 
         //sort cocktails by name
-        class Sortbyname implements Comparator<Cocktail>
+        class SortByName implements Comparator<Cocktail>
         {
             public int compare(Cocktail a, Cocktail b)
             {
@@ -92,7 +92,7 @@ public class Cocktail {
             }
         }
 
-        Collections.sort(cocktails, new Sortbyname());
+        Collections.sort(cocktails, new SortByName());
         return cocktails;
     }
 

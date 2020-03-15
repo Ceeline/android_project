@@ -30,7 +30,6 @@ public class BitmapDownloaderTask extends AsyncTask <String, Integer, Bitmap>{
         ImageRequest imageRequest = new ImageRequest(url,
                 response -> {
                     image.setImageBitmap(response);
-                    Log.i("IMAGE", response.toString());
                 }, 0, 0, ImageView.ScaleType.CENTER, null,
                 error -> Log.i("ERROR_LOG", error.toString()));
 

@@ -1,7 +1,5 @@
 package mobile_dev.project.android_project.database;
 
-import android.util.Log;
-
 import androidx.room.TypeConverter;
 
 import java.util.HashMap;

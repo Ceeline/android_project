@@ -43,6 +43,7 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
         super.onCreate(savedInstanceState);
         this.mView = view;
 
+        // We initialize the recycler view and the corresponding adapter
         RecyclerView recyclerView = view.findViewById(R.id.listCocktails);
         final CocktailsListAdapter adapter = new CocktailsListAdapter(this.getContext(), this);
         recyclerView.setAdapter(adapter);
@@ -56,7 +57,7 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
         // add listener on spinner filters
         addListenerOnSpinnerItemSelection();
 
-
+        // initialize on click action on the search button
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(view1 -> {
             Intent intent = new Intent (context, search_Activity.class);
@@ -65,6 +66,7 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // triggered when we get a result back from the search activity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -74,7 +76,7 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
     }
 
     private void addListenerOnSpinnerItemSelection() {
-        //Spinner letter
+        // for each spinner, we associate an action
         Spinner spinnerFilter = mView.findViewById(R.id.spinner);
         Spinner spinnerChoice = mView.findViewById(R.id.spinnerChoice);
 
@@ -114,11 +116,10 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-            }
+            public void onNothingSelected(AdapterView<?> arg0) {}
         }
 
+        // First Spinner
         spinnerFilter.setOnItemSelectedListener(new CustomOnFilterSelectedListener());
 
 
@@ -136,15 +137,15 @@ public class Cocktail_List_Frag extends Fragment implements CocktailsListAdapter
                     url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?" + filter + "=" + choice;
                 }
 
+                // we get value from a request to this url
                 getCocktailsFromApi(url);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-            }
+            public void onNothingSelected(AdapterView<?> arg0) {}
         }
 
+        // Second Spinner
         spinnerChoice.setOnItemSelectedListener(new CustomOnChoiceSelectedListener());
     }
 

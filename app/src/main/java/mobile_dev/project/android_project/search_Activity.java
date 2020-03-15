@@ -35,8 +35,8 @@ public class search_Activity extends AppCompatActivity {
             TextView input = findViewById(R.id.inputSearch);
             String search = input.getText().toString();
 
+            //we initialize and send back the url to the cocktail list fragment
             String url;
-
             if (rb.getId() == R.id.ingredientBtn){
                 url = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + search;
             }else{
